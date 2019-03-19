@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Waterfall</string>
+    <string name="home_label">Home</string>
+    <string name="notif_label">Notifications</string>
+    <string name="chart_label">More Stats</string>
+    <string name="goals_label">Goals</string>
+    <string name="progress">62%</string>
+    <string name="progress_detail">40 oz out of 64 oz</string>
+    <string name="home_left_text">30 minutes since last drink</string>
+    <string name="home_right_text">19 oz drank on average per day</string>
+</resources>

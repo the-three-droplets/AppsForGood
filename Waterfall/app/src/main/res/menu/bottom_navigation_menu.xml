@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ic_home"
+        android:icon="@drawable/ic_homeicon"
+        android:title="@string/home_label"/>
+    <item
+        android:id="@+id/ic_notifications"
+        android:icon="@drawable/ic_notificationsicon"
+        android:title="@string/notif_label"/>
+    <item
+        android:id="@+id/ic_goals"
+        android:icon="@drawable/ic_staricon"
+        android:title="@string/goals_label"/>
+    <item
+        android:id="@+id/ic_chart"
+        android:icon="@drawable/ic_charticon"
+        android:title="@string/chart_label"/>
+
+
+
+</menu>
