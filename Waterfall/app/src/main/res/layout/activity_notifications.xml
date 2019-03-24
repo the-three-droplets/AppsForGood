@@ -8,85 +8,134 @@
     tools:context=".Notifications">
 
     <LinearLayout
+        android:id="@+id/top_navbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="100">
+        android:layout_height="0dp"
+        android:background="@drawable/top_navbar_border"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.09"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="9"
-            android:orientation="horizontal"
-            android:weightSum="5">
+        <ImageButton
+            android:id="@+id/bluetooth_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorBlue"
+            android:src="@drawable/ic_bluetooth_white" />
 
-            <ImageButton
-                android:id="@+id/bluetooth_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorBlue"
-                android:src="@drawable/ic_bluetoothicon" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@color/colorBlue"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="35sp" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="3"
-                android:background="@color/colorBlue"
-                android:text="@string/app_name"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="35sp" />
-
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:background="@color/colorBlue"
-                android:scaleType="fitCenter"
-                android:src="@drawable/threedroplets" />
-
-        </LinearLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="82">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/notif_label"
-                android:textAlignment="center"
-                android:textSize="24pt" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/toolbarBottom"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="9"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <android.support.design.widget.BottomNavigationView
-                android:id="@+id/navbarBottom"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bottom_navbar_border"
-                app:menu="@menu/bottom_navigation_menu">
-
-
-            </android.support.design.widget.BottomNavigationView>
-
-        </RelativeLayout>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@color/colorBlue"
+            android:scaleType="fitCenter"
+            android:src="@drawable/threedroplets" />
 
     </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/sound_notifpic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.41"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_navbar"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5"
+        android:src="@drawable/ic_voicenotif_aqua" />
+
+    <TextView
+        android:id="@+id/sound_notiftext"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/sound_notiftext"
+        android:textSize="35sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.41"
+        app:layout_constraintLeft_toRightOf="@id/sound_notifpic"
+        app:layout_constraintTop_toBottomOf="@id/top_navbar"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <ImageButton
+        android:id="@+id/phone_notifpic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.41"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sound_notifpic"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5"
+        android:src="@drawable/ic_phonenotif_aqua" />
+
+    <TextView
+        android:id="@+id/phone_notiftext"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/phone_notiftext"
+        android:textSize="35sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.41"
+        app:layout_constraintLeft_toRightOf="@+id/phone_notifpic"
+        app:layout_constraintTop_toBottomOf="@+id/sound_notiftext"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <!-- <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/light_notifpic"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/light_notiftext"
+        android:text="@string/light_notiftext"/> -->
+
+    <RelativeLayout
+        android:id="@+id/bottom_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/bottom_navbar_border"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.09"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phone_notifpic">
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navbarBottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom_navbar_border"
+            app:menu="@menu/bottom_navigation_menu">
+
+
+        </android.support.design.widget.BottomNavigationView>
+
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>

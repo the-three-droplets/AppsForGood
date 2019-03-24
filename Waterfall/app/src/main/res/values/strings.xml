@@ -8,4 +8,7 @@
     <string name="progress_detail">40 oz out of 64 oz</string>
     <string name="home_left_text">30 minutes since last drink</string>
     <string name="home_right_text">19 oz drank on average per day</string>
+    <string name="sound_notiftext">Voice Notification</string>
+    <string name="phone_notiftext">Phone Alert</string>
+    <string name="light_notiftext">Light on Bottle/Base</string>
 </resources>
