@@ -27,7 +27,7 @@ public class Statistics extends AppCompatActivity {
                         break;
 
                     case R.id.ic_notifications:
-                        Intent openNotifs = new Intent(Statistics.this, Notifications.class);
+                        Intent openNotifs = new Intent(Statistics.this, Settings.class);
                         startActivity(openNotifs);
                         break;
 

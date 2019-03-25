@@ -27,7 +27,7 @@ public class Goals extends AppCompatActivity {
                         break;
 
                     case R.id.ic_notifications:
-                        Intent openNotifs = new Intent(Goals.this, Notifications.class);
+                        Intent openNotifs = new Intent(Goals.this, Settings.class);
                         startActivity(openNotifs);
                         break;
 

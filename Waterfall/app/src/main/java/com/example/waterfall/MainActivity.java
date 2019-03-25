@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.ic_notifications:
-                        Intent openNotifs = new Intent(MainActivity.this, Notifications.class);
+                        Intent openNotifs = new Intent(MainActivity.this, Settings.class);
                         startActivity(openNotifs);
                         break;
 
@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 enabledisableBluetooth();
             }
         });
+
+        ImageButton droplets = (ImageButton) findViewById(R.id.three_droplets);
 
         ProgressBar progressCircle = (ProgressBar) findViewById(R.id.circle_progress);
         TextView percentageDrank = (TextView) findViewById(R.id.text_percent_drank);

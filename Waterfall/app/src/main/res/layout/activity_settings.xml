@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    tools:context=".Notifications">
+    tools:context=".Settings">
 
     <LinearLayout
         android:id="@+id/top_navbar"
@@ -50,7 +50,7 @@
     </LinearLayout>
 
 
-    <ImageButton
+    <ToggleButton
         android:id="@+id/sound_notifpic"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -60,7 +60,9 @@
         app:layout_constraintTop_toBottomOf="@id/top_navbar"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.5"
-        android:src="@drawable/ic_voicenotif_aqua" />
+        android:background="@drawable/ic_voicenotif_grey"
+        android:textOff=""
+        android:textOn="" />
 
     <TextView
         android:id="@+id/sound_notiftext"
@@ -76,7 +78,7 @@
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.5" />
 
-    <ImageButton
+    <ToggleButton
         android:id="@+id/phone_notifpic"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -86,7 +88,9 @@
         app:layout_constraintTop_toBottomOf="@+id/sound_notifpic"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.5"
-        android:src="@drawable/ic_phonenotif_aqua" />
+        android:background="@drawable/ic_phonenotif_grey"
+        android:textOff=""
+        android:textOn=""/>
 
     <TextView
         android:id="@+id/phone_notiftext"
