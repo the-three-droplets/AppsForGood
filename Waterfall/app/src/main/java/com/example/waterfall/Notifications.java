@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 public class Notifications extends AppCompatActivity {
 
@@ -49,5 +51,19 @@ public class Notifications extends AppCompatActivity {
         Menu bottomNavBar = bottomNavigation.getMenu();
         MenuItem item = bottomNavBar.getItem(1);
         item.setChecked(true);
+
+        ImageButton soundNotif = (ImageButton) findViewById(R.id.sound_notifpic);
+        ImageButton phoneNotif = (ImageButton) findViewById(R.id.phone_notifpic);
+
+        soundNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enabledisableSound();
+            }
+        });
+    }
+
+    public void enabledisableSound() {
+
     }
 }
