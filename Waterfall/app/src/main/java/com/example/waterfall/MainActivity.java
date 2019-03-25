@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     BluetoothAdapter bluetoothAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton droplets = (ImageButton) findViewById(R.id.three_droplets);
 
         ProgressBar progressCircle = (ProgressBar) findViewById(R.id.circle_progress);
+
         TextView percentageDrank = (TextView) findViewById(R.id.text_percent_drank);
         TextView fractionDrank = (TextView) findViewById(R.id.text_fraction_drank);
     }
