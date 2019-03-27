@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CalendarView;
 
 public class Goals extends AppCompatActivity {
 
@@ -47,5 +48,8 @@ public class Goals extends AppCompatActivity {
         Menu bottomNavBar = bottomNavigation.getMenu();
         MenuItem item = bottomNavBar.getItem(2);
         item.setChecked(true);
+
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calendar);
+
     }
 }

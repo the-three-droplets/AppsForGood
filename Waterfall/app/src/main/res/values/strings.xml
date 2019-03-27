@@ -1,14 +1,30 @@
 <resources>
     <string name="app_name">Waterfall</string>
     <string name="home_label">Home</string>
-    <string name="notif_label">Notifications</string>
-    <string name="chart_label">More Stats</string>
+    <string name="settings_label">Settings</string>
+    <string name="stats_label">More Stats</string>
     <string name="goals_label">Goals</string>
     <string name="progress">62%</string>
     <string name="progress_detail">40 oz out of 64 oz</string>
     <string name="home_left_text">30 minutes since last drink</string>
     <string name="home_right_text">19 oz drank on average per day</string>
-    <string name="sound_notiftext">Voice Notification</string>
-    <string name="phone_notiftext">Phone Alert</string>
+    <string name="sound_notiftext">Voice</string>
+    <string name="phone_notiftext">Phone</string>
     <string name="light_notiftext">Light on Bottle/Base</string>
+    <string name="notif_setting_header">Notifications Settings</string>
+    <string name="custom_setting_header">Custom Settings</string>
+    <string name="time_interval_text">Minimum Time Between Drinks: </string>
+    <string name="water_total_text">Ideal Daily Water Consumption: </string>
+    <string name="set_button_text">Set Changes</string>
+    <string name="default_time_interval">1</string>
+    <string name="default_water_total">64</string>
+    <string name="time_interval_unit">hour(s)</string>
+    <string name="water_total_unit">ounce(s)</string>
+    <string name="hourly_header">Hourly</string>
+    <string name="daily_header">Daily</string>
+    <string name="weekly_header">Weekly</string>
+    <string name="monthly_header">Monthly</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

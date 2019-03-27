@@ -49,32 +49,32 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/notif_header"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/notif_setting_header"
+        android:textSize="40sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_navbar" />
 
     <ToggleButton
         android:id="@+id/sound_notifpic"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.41"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_navbar"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.5"
         android:background="@drawable/ic_voicenotif_grey"
-        android:textOff=""
-        android:textOn="" />
-
-    <TextView
-        android:id="@+id/sound_notiftext"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/sound_notiftext"
-        android:textSize="35sp"
+        android:gravity="bottom"
+        android:textAlignment="center"
+        android:textOff="@string/sound_notiftext"
+        android:textOn="@string/sound_notiftext"
+        android:textSize="15sp"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.41"
-        app:layout_constraintLeft_toRightOf="@id/sound_notifpic"
-        app:layout_constraintTop_toBottomOf="@id/top_navbar"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/notif_header"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.5" />
 
@@ -82,40 +82,125 @@
         android:id="@+id/phone_notifpic"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.41"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sound_notifpic"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.5"
         android:background="@drawable/ic_phonenotif_grey"
-        android:textOff=""
-        android:textOn=""/>
-
-    <TextView
-        android:id="@+id/phone_notiftext"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/phone_notiftext"
-        android:textSize="35sp"
+        android:gravity="bottom"
+        android:textAlignment="center"
+        android:textOff="@string/phone_notiftext"
+        android:textOn="@string/phone_notiftext"
+        android:textSize="15sp"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.41"
-        app:layout_constraintLeft_toRightOf="@+id/phone_notifpic"
-        app:layout_constraintTop_toBottomOf="@+id/sound_notiftext"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintLeft_toRightOf="@id/sound_notifpic"
+        app:layout_constraintTop_toBottomOf="@id/notif_header"
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.5" />
 
-    <!-- <ImageButton
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/custom_header"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/light_notifpic"/>
+        android:gravity="center"
+        android:text="@string/custom_setting_header"
+        android:textSize="40sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sound_notifpic" />
 
     <TextView
+        android:id="@+id/time_interval_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/light_notiftext"
-        android:text="@string/light_notiftext"/> -->
+        android:gravity="center"
+        android:text="@string/time_interval_text"
+        android:textSize="20sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/custom_header"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <EditText
+        android:id="@+id/time_interval_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/default_time_interval"
+        android:textSize="20sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toRightOf="@id/time_interval_text"
+        app:layout_constraintTop_toBottomOf="@id/custom_header"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.1" />
+
+    <TextView
+        android:id="@+id/time_interval_unit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/time_interval_unit"
+        android:textSize="20sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/custom_header"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <TextView
+        android:id="@+id/water_total_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/water_total_text"
+        android:textSize="20sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time_interval_text"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <EditText
+        android:id="@+id/water_total_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/default_water_total"
+        android:textSize="20sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toRightOf="@id/water_total_text"
+        app:layout_constraintTop_toBottomOf="@id/time_interval_edit"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.1" />
+
+    <TextView
+        android:id="@+id/water_total_unit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/water_total_unit"
+        android:textSize="20sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time_interval_unit"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <Button
+        android:id="@+id/set_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/set_button_text"
+        android:textSize="20sp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/water_total_text" />
 
     <RelativeLayout
         android:id="@+id/bottom_navbar"
@@ -127,7 +212,7 @@
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.09"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone_notifpic">
+        app:layout_constraintTop_toBottomOf="@id/set_button">
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navbarBottom"

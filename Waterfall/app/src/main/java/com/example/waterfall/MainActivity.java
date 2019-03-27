@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         bluetoothButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                enabledisableBluetooth();
+                toggleBluetooth();
             }
         });
 
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         TextView fractionDrank = (TextView) findViewById(R.id.text_fraction_drank);
     }
 
-    public void enabledisableBluetooth() {
+    public void toggleBluetooth() {
         if (bluetoothAdapter == null) {
             //enabledisableBluetooth: Device does not support bluetooth"
         }
