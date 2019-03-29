@@ -1,12 +1,15 @@
 package com.example.waterfall;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CalendarView;
+import android.widget.ImageButton;
 
 public class Goals extends AppCompatActivity {
 
@@ -47,5 +50,17 @@ public class Goals extends AppCompatActivity {
         Menu bottomNavBar = bottomNavigation.getMenu();
         MenuItem item = bottomNavBar.getItem(2);
         item.setChecked(true);
+
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calendar);
+
+        ImageButton bluetoothButton = (ImageButton) findViewById(R.id.bluetooth_button);
+
+        bluetoothButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openBluetoothPage = new Intent(Goals.this, Bluetooth.class);
+                startActivity(openBluetoothPage);
+            }
+        });
     }
 }

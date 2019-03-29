@@ -11,13 +11,13 @@
         android:id="@+id/top_navbar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/top_navbar_border"
         android:orientation="horizontal"
         android:weightSum="5"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.09"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/top_navbar_border">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/bluetooth_button"
@@ -50,23 +50,38 @@
     </LinearLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/content"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/tab_navbar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.82"
+        app:layout_constraintHeight_percent="0.09"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_navbar">
 
-        <TextView
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/chart_label"
-            android:textAlignment="center"
-            android:textSize="24pt" />
-    </RelativeLayout>
+            android:theme="@style/AlertDialog.AppCompat.Light">
+
+        </android.support.design.widget.TabLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.73"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_navbar">
+
+
+    </android.support.v4.view.ViewPager>
 
 
     <RelativeLayout
@@ -74,12 +89,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
+        android:background="@drawable/bottom_navbar_border"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.09"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/content"
-        android:background="@drawable/bottom_navbar_border">
+        app:layout_constraintTop_toBottomOf="@id/view_pager">
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navbarBottom"
