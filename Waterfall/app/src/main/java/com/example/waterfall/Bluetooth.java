@@ -6,10 +6,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Bluetooth extends AppCompatActivity {
+public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     BluetoothAdapter bluetoothAdapter;
     public ArrayList<BluetoothDevice> BTdevices;
@@ -97,10 +99,33 @@ public class Bluetooth extends AppCompatActivity {
         }
     };
 
+    private final BroadcastReceiver receiver4 = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            if (action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
+                    Log.d("receiver4", "BOND_BONDED");
+                }
+                if (device.getBondState() == BluetoothDevice.BOND_BONDING) {
+                    Log.d("receiver4", "BOND_BONDING");
+                }
+                if (device.getBondState() == BluetoothDevice.BOND_NONE) {
+                    Log.d("receiver4", "BOND_NONE");
+                }
+            }
+        }
+    };
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(receiver1);
+        unregisterReceiver(receiver2);
+        unregisterReceiver(receiver3);
+        unregisterReceiver(receiver4);
     }
 
     @Override
@@ -109,6 +134,8 @@ public class Bluetooth extends AppCompatActivity {
         setContentView(R.layout.activity_bluetooth);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BTdevices = new ArrayList<>();
+        BTdeviceList = (ListView) findViewById(R.id.device_list);
 
         final Switch btntoggleBT = (Switch) findViewById(R.id.toggle_bluetooth_button);
         if (bluetoothAdapter == null) {
@@ -137,10 +164,10 @@ public class Bluetooth extends AppCompatActivity {
             }
         });
 
-        // ConstraintLayout.LayoutParams listViewParams = new ConstraintLayout.LayoutParams(0,0);
+        BTdeviceList.setOnItemClickListener(Bluetooth.this);
 
-        BTdevices = new ArrayList<>();
-        BTdeviceList = (ListView) findViewById(R.id.device_list);
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+        registerReceiver(receiver4, filter);
     }
 
     public void toggleBluetooth(View view) {
@@ -190,7 +217,21 @@ public class Bluetooth extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        bluetoothAdapter.cancelDiscovery();
+        Log.d("onItemClick", "You clicked on a device");
+        String deviceName = BTdevices.get(i).getName();
+        String deviceAddress = BTdevices.get(i).getAddress();
 
+        Log.d("onItemClick", "Device Name: " + deviceName);
+        Log.d("onItemClick", "Device Address: " + deviceAddress);
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Log.d("onItemClick", "Trying to pair with " + deviceName);
+            BTdevices.get(i).createBond();
+        }
+    }
 
 
 }
