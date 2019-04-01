@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -122,10 +121,12 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver1);
-        unregisterReceiver(receiver2);
-        unregisterReceiver(receiver3);
-        unregisterReceiver(receiver4);
+        if (bluetoothAdapter != null) {
+            unregisterReceiver(receiver1);
+            unregisterReceiver(receiver2);
+            unregisterReceiver(receiver3);
+            unregisterReceiver(receiver4);
+        }
     }
 
     @Override
@@ -147,7 +148,7 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
         else if (!bluetoothAdapter.isEnabled()) {
             btntoggleBT.setChecked(false);
         }
-        Button btntoggleBTDiscoverability = (Button) findViewById(R.id.toggle_discoverable_button);
+        // Button btntoggleBTDiscoverability = (Button) findViewById(R.id.toggle_discoverable_button);
 
         btntoggleBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,13 +157,13 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
             }
         });
 
-        btntoggleBTDiscoverability.setOnClickListener(new View.OnClickListener() {
+        /*btntoggleBTDiscoverability.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleDiscoverable(v);
                 discoverScan(v);
             }
-        });
+        }); */
 
         BTdeviceList.setOnItemClickListener(Bluetooth.this);
 
@@ -181,6 +182,9 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
 
             IntentFilter bluetooth_intent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
             registerReceiver(receiver1, bluetooth_intent);
+
+            toggleDiscoverable(view);
+            discoverScan(view);
         }
         else if (bluetoothAdapter.isEnabled()) {
             bluetoothAdapter.disable();
