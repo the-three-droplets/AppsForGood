@@ -1,11 +1,13 @@
 package com.example.waterfall;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,12 +30,12 @@ public class Settings extends AppCompatActivity {
     private static final String FILE_NAME = "settings.txt";
     EditText timeIntervalEdit;
     EditText waterTotalEdit;
+    String originalSettings = "1,64";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
 
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.navbarBottom);
@@ -111,15 +113,6 @@ public class Settings extends AppCompatActivity {
         timeIntervalEdit = (EditText) findViewById(R.id.time_interval_edit);
         waterTotalEdit = (EditText) findViewById(R.id.water_total_edit);
 
-        FileInputStream fis = null;
-        try {
-            fis = openFileInput(FILE_NAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader br = new BufferedReader(isr);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         Button saveBTN = (Button) findViewById(R.id.set_button);
         saveBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,16 +120,54 @@ public class Settings extends AppCompatActivity {
                 saveSettings(v);
             }
         });
+
+        final String PREFS_NAME = "MyPrefsFile";
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+        if (settings.getBoolean("my_first_time", true)) {
+            FileOutputStream outputStream = null;
+            try {
+                outputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
+                outputStream.write(originalSettings.getBytes());
+                outputStream.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("Comments", "First time");
+
+            // first time task
+
+            // record the fact that the app has been started at least once
+            settings.edit().putBoolean("my_first_time", false).commit();
+        }
+
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput(FILE_NAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String[] fields = br.readLine().split(",");
+            String current_timeInterval = fields[0];
+            String current_waterTotal = fields[1];
+            timeIntervalEdit.setText(current_timeInterval);
+            waterTotalEdit.setText(current_waterTotal);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveSettings(View v) {
-        int timeInterval = Integer.parseInt(timeIntervalEdit.getText().toString());
-        int waterTotal = Integer.parseInt(waterTotalEdit.getText().toString());
+        String timeInterval = timeIntervalEdit.getText().toString();
+        String waterTotal = waterTotalEdit.getText().toString();
         FileOutputStream fos = null;
         try {
             fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
-            fos.write(timeInterval);
-            fos.write(waterTotal);
+            fos.write((timeInterval + "," + waterTotal).getBytes());
 
             Toast.makeText(this, "Saved settings to " + getFilesDir() + "/" + FILE_NAME, Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
