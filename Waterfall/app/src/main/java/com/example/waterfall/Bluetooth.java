@@ -23,7 +23,7 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
     BluetoothAdapter bluetoothAdapter;
     public ArrayList<BluetoothDevice> BTdevices;
     public DeviceListAdapter deviceListAdapter;
-    ListView BTdeviceList;
+    ListView BTdeviceList = (ListView) findViewById(R.id.device_list);
 
     private final BroadcastReceiver receiver1 = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -148,7 +148,6 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
         else if (!bluetoothAdapter.isEnabled()) {
             btntoggleBT.setChecked(false);
         }
-        // Button btntoggleBTDiscoverability = (Button) findViewById(R.id.toggle_discoverable_button);
 
         btntoggleBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,13 +156,6 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
             }
         });
 
-        /*btntoggleBTDiscoverability.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleDiscoverable(v);
-                discoverScan(v);
-            }
-        }); */
 
         BTdeviceList.setOnItemClickListener(Bluetooth.this);
 
