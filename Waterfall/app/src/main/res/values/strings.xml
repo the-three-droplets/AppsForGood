@@ -26,6 +26,8 @@
     <string name="monthly_header">Monthly</string>
     <string name="turnOnBT">Turn On Bluetooth</string>
     <string name="turnOffBT">Turn Off Bluetooth</string>
+    <string name="channel_name">Channel Name</string>
+    <string name="channel_description">Channel Description</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
