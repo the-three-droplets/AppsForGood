@@ -8,14 +8,31 @@
 
     <Switch
         android:id="@+id/toggle_bluetooth_button"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/toggle_discoverability_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintTop_toBottomOf="@id/toggle_bluetooth_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <Button
+        android:id="@+id/toggle_scan_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintTop_toBottomOf="@id/toggle_discoverability_button"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <ListView
         android:id="@+id/device_list"
