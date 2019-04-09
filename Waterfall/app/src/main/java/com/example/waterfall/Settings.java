@@ -169,7 +169,7 @@ public class Settings extends AppCompatActivity {
             fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
             fos.write((timeInterval + "," + waterTotal).getBytes());
 
-            Toast.makeText(this, "Saved settings to " + getFilesDir() + "/" + FILE_NAME, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Saved setting to " + getFilesDir() + "/" + FILE_NAME, Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

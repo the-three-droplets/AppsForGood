@@ -24,7 +24,7 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
     BluetoothAdapter bluetoothAdapter;
     public ArrayList<BluetoothDevice> BTdevices;
     public DeviceListAdapter deviceListAdapter;
-    ListView BTdeviceList = (ListView) findViewById(R.id.device_list);
+    ListView BTdeviceList;
     Button btntoggleDiscoverable;
     Button btntoggleScan;
 
