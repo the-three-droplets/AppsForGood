@@ -12,8 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
     public ArrayList<BluetoothDevice> BTDevices = new ArrayList<>();
     public DeviceListAdapter mDeviceListAdapter;
     ListView lvUnpairedDevices;
+    Switch btn_toggleBT;
 
     BluetoothAdapter BTAdapter;
 
@@ -106,8 +107,18 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
 
-        Button btn_toggleBT = (Button) findViewById(R.id.toggleBT_btn);
+        btn_toggleBT = (Switch) findViewById(R.id.toggleBT_btn);
         lvUnpairedDevices = (ListView) findViewById(R.id.lvUnpairedDevices);
+
+        if (BTAdapter == null) {
+            btn_toggleBT.setChecked(false);
+        }
+        else if (BTAdapter.isEnabled()) {
+            btn_toggleBT.setChecked(true);
+        }
+        else if (!BTAdapter.isEnabled()) {
+            btn_toggleBT.setChecked(false);
+        }
 
         BTAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -128,6 +139,7 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
     public void toggleBT() {
         if (BTAdapter == null) {
             Toast.makeText(getApplicationContext(), "Device does not support bluetooth", Toast.LENGTH_SHORT).show();
+            btn_toggleBT.setChecked(false);
         }
         else if (!BTAdapter.isEnabled()) {
             Log.d(TAG, "toggleBT: enabling bluetooth");
@@ -137,6 +149,8 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
 
             IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
             registerReceiver(receiver1, BTIntent);
+
+            btn_toggleBT.setChecked(true);
         }
         else if (BTAdapter.isEnabled()) {
             Log.d(TAG, "toggleBT: disabling bluetooth");
@@ -145,6 +159,8 @@ public class Bluetooth extends AppCompatActivity implements AdapterView.OnItemCl
 
             IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
             registerReceiver(receiver1, BTIntent);
+
+            btn_toggleBT.setChecked(false);
         }
     }
 
