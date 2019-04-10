@@ -10,34 +10,38 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
 public class DeviceListAdapter extends ArrayAdapter<BluetoothDevice> {
 
-    private LayoutInflater layoutInflater;
-    private ArrayList<BluetoothDevice> devices;
-    private int resourceID;
+    private LayoutInflater mLayoutInflater;
+    private ArrayList<BluetoothDevice> mDevices;
+    private int  mViewResourceId;
 
-    public DeviceListAdapter(Context context, int tvResourceID, ArrayList<BluetoothDevice> devices) {
-        super(context, tvResourceID, devices);
-
+    public DeviceListAdapter(Context context, int tvResourceId, ArrayList<BluetoothDevice> devices){
+        super(context, tvResourceId,devices);
+        this.mDevices = devices;
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mViewResourceId = tvResourceId;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = layoutInflater.inflate(resourceID, null);
+        convertView = mLayoutInflater.inflate(mViewResourceId, null);
 
-        BluetoothDevice device = devices.get(position);
+        BluetoothDevice device = mDevices.get(position);
 
         if (device != null) {
             TextView deviceName = (TextView) convertView.findViewById(R.id.tvDeviceName);
-            TextView deviceAddress = (TextView) convertView.findViewById(R.id.tvDeviceAddress);
+            TextView deviceAdress = (TextView) convertView.findViewById(R.id.tvDeviceAddress);
 
             if (deviceName != null) {
                 deviceName.setText(device.getName());
             }
-            if (deviceAddress != null) {
-                deviceAddress.setText(device.getAddress());
+            if (deviceAdress != null) {
+                deviceAdress.setText(device.getAddress());
             }
         }
-        return convertView;
 
+        return convertView;
     }
+
 }
