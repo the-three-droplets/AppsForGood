@@ -31,7 +31,7 @@ public class BTMain extends AppCompatActivity implements View.OnClickListener, A
     private Button btn_Scan;
 
     private BroadcastReceiver_BTState mBTStateUpdateReceiver;
-    private Scanner_BTLE mBTLeScanner;
+    private Scanner_BTLE mBTLEScanner;
 
 
     @Override
@@ -48,7 +48,7 @@ public class BTMain extends AppCompatActivity implements View.OnClickListener, A
         }
 
         mBTStateUpdateReceiver = new BroadcastReceiver_BTState(getApplicationContext());
-        mBTLeScanner = new Scanner_BTLE(this,5000, -75);
+        mBTLEScanner = new Scanner_BTLE(this,5000, -75);
 
         mBTDevicesHashMap = new HashMap<>();
         mBTDevicesArrayList = new ArrayList<>();
@@ -144,7 +144,7 @@ public class BTMain extends AppCompatActivity implements View.OnClickListener, A
             case R.id.btn_scan:
                 Utils.toast(getApplicationContext(), "Scan Button Pressed");
 
-                if (!mBTLeScanner.isScanning()) {
+                if (!mBTLEScanner.isScanning()) {
                     startScan();
                 }
                 else {
@@ -181,12 +181,12 @@ public class BTMain extends AppCompatActivity implements View.OnClickListener, A
         mBTDevicesArrayList.clear();
         mBTDevicesHashMap.clear();
 
-        mBTLeScanner.start();
+        mBTLEScanner.start();
     }
 
     public void stopScan() {
         btn_Scan.setText("Scan Again");
 
-        mBTLeScanner.stop();
+        mBTLEScanner.stop();
     }
 }

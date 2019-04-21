@@ -6,11 +6,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -21,11 +22,12 @@ import java.util.List;
 public class Activity_BTLE_Services extends AppCompatActivity implements ExpandableListView.OnChildClickListener {
     private final static String TAG = Activity_BTLE_Services.class.getSimpleName();
 
-    public static final String EXTRA_NAME = "android.com.example.waterfall.Activity_BTLE_Services.NAME";
-    public static final String EXTRA_ADDRESS = "android.com.example.waterfall.Activity_BTLE_Services.ADDRESS";
+    public static final String EXTRA_NAME = "com.example.waterfall.Activity_BTLE_Services.NAME";
+    public static final String EXTRA_ADDRESS = "com.example.waterfall.Activity_BTLE_Services.ADDRESS";
 
     private ListAdapter_BTLE_Services expandableListAdapter;
     private ExpandableListView expandableListView;
+    private EditText send;
 
     private ArrayList<BluetoothGattService> services_ArrayList;
     private HashMap<String, BluetoothGattCharacteristic> characteristics_HashMap;
@@ -148,6 +150,8 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
             dialog_btle_characteristic.setCharacteristic(characteristic);
 
             dialog_btle_characteristic.show(getFragmentManager(), "Dialog_BTLE_Characteristic");
+
+            mBTLE_Service.writeCharacteristic(characteristic);
         } else if (Utils.hasReadProperty(characteristic.getProperties()) != 0) {
             if (mBTLE_Service != null) {
                 mBTLE_Service.readCharacteristic(characteristic);
