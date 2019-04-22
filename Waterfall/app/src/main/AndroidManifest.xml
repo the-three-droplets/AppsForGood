@@ -27,8 +27,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BTMain"/>
-        <activity android:name=".Activity_BTLE_Services"/>
+        <activity android:name=".BT"></activity>
+        <activity android:name=".BTMain" />
+        <activity android:name=".Activity_BTLE_Services" />
         <activity android:name=".Goals" />
         <activity android:name=".Statistics" />
         <activity android:name=".Settings" />
@@ -43,8 +44,7 @@
         <service
             android:name=".Service_BTLE_GATT"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
     </application>
-
 
 </manifest>
