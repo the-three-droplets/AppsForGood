@@ -73,7 +73,7 @@ public class Statistics extends AppCompatActivity {
         bluetoothButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openBluetoothPage = new Intent(Statistics.this, BTMain.class);
+                Intent openBluetoothPage = new Intent(Statistics.this, BT.class);
                 startActivity(openBluetoothPage);
             }
         });

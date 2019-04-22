@@ -6,12 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".BT">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_lit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/colorBlue">
+
+
+    </android.support.v7.widget.Toolbar>
+
     <TextView
         android:id="@+id/weight_data"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_lit"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView

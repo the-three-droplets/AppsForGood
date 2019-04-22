@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.Intent;
@@ -15,8 +14,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TextView;
@@ -29,12 +30,10 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
     private static final String DEVICE_NAME = "Waterfall";
 
     // For weight sensor
-    private static final UUID WEIGHT_SERVICE = UUID.fromString("");
-    private static final UUID WEIGHT_DATA_CHAR = UUID.fromString("");
-    private static final UUID WEIGHT_CONFIG_CHAR = UUID.fromString("");
+    private static final UUID WEIGHT_SERVICE = UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb");
+    private static final UUID WEIGHT_DATA_CHAR = UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb");
 
-    private static final UUID CONFIG_DESCRIPTOR = UUID.fromString("");
-
+    // private static final UUID CONFIG_DESCRIPTOR = UUID.fromString("00002902-0000-1000-8000-00805f9b34fd");
 
 
     private TextView tv_weight;
@@ -49,8 +48,8 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bt);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        setContentView(R.layout.activity_bt);
         setProgressBarIndeterminate(true);
 
         tv_weight = (TextView) findViewById(R.id.weight_data);
@@ -64,6 +63,8 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
         mProgress = new ProgressDialog(this);
         mProgress.setIndeterminate(true);
         mProgress.setCancelable(false);
+
+        setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.toolbar_lit));
     }
 
     @Override
@@ -109,7 +110,8 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
 
         for (int i = 0; i < mDevices.size(); i++) {
             BluetoothDevice device = mDevices.valueAt(i);
@@ -167,17 +169,17 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
 
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+        Log.d("BT","onLeScan: LE Scan successfully started");
         if (DEVICE_NAME.equals(device.getName())) {
             mDevices.put(device.hashCode(), device);
-            invalidateOptionsMenu();
         }
+        invalidateOptionsMenu();
     }
 
     private BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
 
         private void readSensor(BluetoothGatt gatt) {
-            BluetoothGattCharacteristic characteristic = gatt.getService(WEIGHT_SERVICE)
-                    .getCharacteristic(WEIGHT_DATA_CHAR);
+            BluetoothGattCharacteristic characteristic = gatt.getService(WEIGHT_SERVICE).getCharacteristic(WEIGHT_DATA_CHAR);
             gatt.readCharacteristic(characteristic);
         }
 
@@ -185,9 +187,10 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
             BluetoothGattCharacteristic characteristic = gatt.getService(WEIGHT_SERVICE)
                     .getCharacteristic(WEIGHT_DATA_CHAR);
             gatt.setCharacteristicNotification(characteristic, true);
-            BluetoothGattDescriptor desc = characteristic.getDescriptor(CONFIG_DESCRIPTOR);
-            desc.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-            gatt.writeDescriptor(desc);
+            mHandler.sendEmptyMessage(MSG_DISMISS);
+//            BluetoothGattDescriptor desc = characteristic.getDescriptor(CONFIG_DESCRIPTOR);
+//            desc.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+//            gatt.writeDescriptor(desc);
         }
 
         @Override
@@ -258,7 +261,8 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
     };
 
     private void updateValues(BluetoothGattCharacteristic characteristic) {
-        tv_weight.setText(characteristic.getValue().toString());
+        String no = new String(characteristic.getValue());
+        tv_weight.setText(no);
     }
 
 

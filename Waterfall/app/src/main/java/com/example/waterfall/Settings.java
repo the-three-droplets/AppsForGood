@@ -105,7 +105,7 @@ public class Settings extends AppCompatActivity {
         bluetoothButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openBluetoothPage = new Intent(Settings.this, BTMain.class);
+                Intent openBluetoothPage = new Intent(Settings.this, BT.class);
                 startActivity(openBluetoothPage);
             }
         });
