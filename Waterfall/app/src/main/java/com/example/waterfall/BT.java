@@ -171,21 +171,22 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
         Log.d("BT","onLeScan: LE Scan successfully started");
         if (DEVICE_NAME.equals(device.getName())) {
+            Log.d("BT", "onLeScan: Device found");
             mDevices.put(device.hashCode(), device);
+            invalidateOptionsMenu();
         }
-        invalidateOptionsMenu();
     }
 
     private BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
 
         private void readSensor(BluetoothGatt gatt) {
+            // Make sure that it's connected
             BluetoothGattCharacteristic characteristic = gatt.getService(WEIGHT_SERVICE).getCharacteristic(WEIGHT_DATA_CHAR);
             gatt.readCharacteristic(characteristic);
         }
 
         private void setNotifySensor(BluetoothGatt gatt) {
-            BluetoothGattCharacteristic characteristic = gatt.getService(WEIGHT_SERVICE)
-                    .getCharacteristic(WEIGHT_DATA_CHAR);
+            BluetoothGattCharacteristic characteristic = gatt.getService(WEIGHT_SERVICE).getCharacteristic(WEIGHT_DATA_CHAR);
             gatt.setCharacteristicNotification(characteristic, true);
             mHandler.sendEmptyMessage(MSG_DISMISS);
 //            BluetoothGattDescriptor desc = characteristic.getDescriptor(CONFIG_DESCRIPTOR);
@@ -200,16 +201,18 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
                 mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Discovering Services..."));
             }
             else if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_DISCONNECTED) {
+                Log.d("BT", "onConnectionStateChange: Device disconnected.");
                 mHandler.sendEmptyMessage(MSG_CLEAR);
             }
             else if (status != BluetoothGatt.GATT_SUCCESS) {
+                Log.d("BT", "onConnectionStateChange: Gatt connection failed.");
                 gatt.disconnect();
             }
         }
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-            mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Enabling Sensors..."));
+            mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Retrieving Data..."));
             readSensor(gatt);
         }
 
@@ -261,8 +264,12 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
     };
 
     private void updateValues(BluetoothGattCharacteristic characteristic) {
-        String no = new String(characteristic.getValue());
-        tv_weight.setText(no);
+        String rawData = new String(characteristic.getValue());
+        String[] data = rawData.split(",");
+//        int weight = Integer.parseInt(data[0]);
+//        int zero = Integer.parseInt(data[1]);
+        tv_weight.setText(rawData);
+        //tv_time.setText(zero);
     }
 
 
