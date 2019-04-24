@@ -213,8 +213,6 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
                     gatt.disconnect();
                 }
             }
-
-            // Don't forget else
         }
 
         @Override
