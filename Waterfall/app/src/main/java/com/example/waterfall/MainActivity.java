@@ -1,11 +1,9 @@
 package com.example.waterfall;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -76,19 +74,6 @@ public class MainActivity extends AppCompatActivity {
         TextView percentageDrank = (TextView) findViewById(R.id.text_percent_drank);
         TextView fractionDrank = (TextView) findViewById(R.id.text_fraction_drank);
 
-        sendNotification();
-    }
-
-    public void sendNotification() {
-        Notification notif = new NotificationCompat.Builder(this, App.CHANNEL_ID)
-                .setSmallIcon(R.drawable.threedroplets)
-                .setContentTitle("HI")
-                .setContentText("DRINK AWAY")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .build();
-
-        notifManagerCompat.notify(1, notif);
     }
 
 

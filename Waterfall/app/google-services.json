@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "243431592235",
+    "firebase_url": "https://waterfall-813ff.firebaseio.com",
+    "project_id": "waterfall-813ff",
+    "storage_bucket": "waterfall-813ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243431592235:android:848f3d3e5f55b53c",
+        "android_client_info": {
+          "package_name": "com.example.waterfall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243431592235-danc825o8mdj1psohul5tjhdil55q399.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.waterfall",
+            "certificate_hash": "812f897ba98a31e78fdf9e754405a8ff9b078b9a"
+          }
+        },
+        {
+          "client_id": "243431592235-re0r7m98i5ktgslsa1hr8dhs499h3jt4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf3IM9S0K8H9VKFth1IXiDUhGc-wKobBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243431592235-re0r7m98i5ktgslsa1hr8dhs499h3jt4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

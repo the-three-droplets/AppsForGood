@@ -169,9 +169,9 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
 
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-        Log.d("BT","onLeScan: LE Scan successfully started");
+        Log.d("BT","onLeScan: Device Found");
         if (DEVICE_NAME.equals(device.getName())) {
-            Log.d("BT", "onLeScan: Device found");
+            Log.d("BT", "onLeScan: Waterfall found");
             mDevices.put(device.hashCode(), device);
             invalidateOptionsMenu();
         }
@@ -197,6 +197,7 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
+                Log.d("BT", "onConnectionStateChange: Device connected.");
                 gatt.discoverServices();
                 mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Discovering Services..."));
             }
@@ -205,9 +206,15 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
                 mHandler.sendEmptyMessage(MSG_CLEAR);
             }
             else if (status != BluetoothGatt.GATT_SUCCESS) {
-                Log.d("BT", "onConnectionStateChange: Gatt connection failed.");
-                gatt.disconnect();
+                Log.d("BT", "onConnectionStateChange: Gatt connection not successful.");
+                Log.d("BT", "onConnectionStateChange: Status is " + status);
+                if (status == BluetoothGatt.GATT_FAILURE) {
+                    Log.d("BT", "onConnectionStateChange: Gatt connection failed.");
+                    gatt.disconnect();
+                }
             }
+
+            // Don't forget else
         }
 
         @Override
@@ -268,10 +275,9 @@ public class BT extends AppCompatActivity implements BluetoothAdapter.LeScanCall
         String[] data = rawData.split(",");
 //        int weight = Integer.parseInt(data[0]);
 //        int zero = Integer.parseInt(data[1]);
-        tv_weight.setText(rawData);
+        tv_weight.setText(rawData + " grams");
         //tv_time.setText(zero);
     }
-
 
 
 
