@@ -1,13 +1,11 @@
 package com.example.waterfall;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +28,6 @@ public class Settings extends AppCompatActivity {
     private static final String FILE_NAME = "settings.txt";
     EditText timeIntervalEdit;
     EditText waterTotalEdit;
-    String originalSettings = "1,64";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,29 +117,6 @@ public class Settings extends AppCompatActivity {
                 saveSettings(v);
             }
         });
-
-        final String PREFS_NAME = "MyPrefsFile";
-
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-
-        if (settings.getBoolean("my_first_time", true)) {
-            FileOutputStream outputStream = null;
-            try {
-                outputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
-                outputStream.write(originalSettings.getBytes());
-                outputStream.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Log.d("Comments", "First time");
-
-            // first time task
-
-            // record the fact that the app has been started at least once
-            settings.edit().putBoolean("my_first_time", false).commit();
-        }
 
         FileInputStream fis = null;
         try {

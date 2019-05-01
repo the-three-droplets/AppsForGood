@@ -2,6 +2,7 @@ package com.example.waterfall;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,7 +18,16 @@ import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class MainActivity extends AppCompatActivity implements Medium {
+
+    private static final String FILE_NAME = "settings.txt";
 
     private ProgressBar progressCircle;
     private TextView tv_percentageDrank;
@@ -26,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements Medium {
 
     SparseArray<BluetoothDevice> devices;
     //private ProgressDialog mProgress;
+
+    String originalSettings = "1,64";
 
 
     @Override
@@ -93,6 +105,44 @@ public class MainActivity extends AppCompatActivity implements Medium {
         //mProgress = new ProgressDialog(this);
         //mProgress.setIndeterminate(true);
         //mProgress.setCancelable(false);
+
+
+        final String PREFS_NAME = "MyPrefsFile";
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+        if (settings.getBoolean("my_first_time", true)) {
+            FileOutputStream outputStream = null;
+            try {
+                outputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
+                outputStream.write(originalSettings.getBytes());
+                outputStream.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("Comments", "First time");
+
+            // first time task
+
+            // record the fact that the app has been started at least once
+            settings.edit().putBoolean("my_first_time", false).commit();
+        }
+
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput(FILE_NAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String[] fields = br.readLine().split(",");
+            String current_timeInterval = fields[0];
+            String current_waterTotal = fields[1];
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.top_navbar));
     }
