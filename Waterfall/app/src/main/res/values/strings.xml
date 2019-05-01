@@ -13,7 +13,7 @@
     <string name="light_notiftext">Light on Bottle/Base</string>
     <string name="notif_setting_header">Notifications Settings</string>
     <string name="custom_setting_header">Custom Settings</string>
-    <string name="time_interval_text">Minimum Time Between Drinks: </string>
+    <string name="time_interval_text">Maximum Time Between Drinks: </string>
     <string name="water_total_text">Ideal Daily Water Consumption: </string>
     <string name="set_button_text">Set Changes</string>
     <string name="default_time_interval">1</string>

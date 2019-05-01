@@ -7,48 +7,20 @@
     android:background="@color/colorWhite"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
         android:id="@+id/top_navbar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/top_navbar_border"
+        android:background="@color/colorBlue"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:orientation="horizontal"
-        android:weightSum="5"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.09"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
-        <ImageButton
-            android:id="@+id/bluetooth_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorBlue"
-            android:src="@drawable/ic_bluetooth_white" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:background="@color/colorBlue"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textColor="@color/colorWhite"
-            android:textSize="35sp" />
-
-        <ImageButton
-            android:id="@+id/three_droplets"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@color/colorBlue"
-            android:scaleType="fitCenter"
-            android:src="@drawable/threedroplets" />
-
-    </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
     <ProgressBar
         android:id="@+id/circle_progress"

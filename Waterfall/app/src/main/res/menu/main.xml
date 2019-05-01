@@ -3,9 +3,16 @@
     xmlns:yourapp="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/bt_icon"
+        android:title="bt_icon"
+        android:icon="@drawable/ic_bluetooth_white"
+        yourapp:showAsAction="always"
+        />
+
+    <item
         android:id="@+id/action_scan"
         android:title="@string/scan_button"
-        yourapp:showAsAction="ifRoom"
+        yourapp:showAsAction="always"
         />
 
 

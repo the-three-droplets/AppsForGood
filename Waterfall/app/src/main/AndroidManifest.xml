@@ -39,6 +39,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".BTService"/>
+
     </application>
 
 </manifest>
