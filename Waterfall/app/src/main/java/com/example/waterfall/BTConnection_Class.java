@@ -124,11 +124,12 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
             }
             else if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_DISCONNECTED) {
                 Log.d(CLASS_TAG, "onConnectionStateChange: Device disconnected.");
-                mHandler.sendEmptyMessage(MSG_CLEAR);
+                mHandler.sendEmptyMessage(MSG_DISMISS);
             }
             else if (status != BluetoothGatt.GATT_SUCCESS) {
                 Log.d(CLASS_TAG, "onConnectionStateChange: Gatt connection not successful.");
                 Log.d(CLASS_TAG, "onConnectionStateChange: Status is " + status);
+                mHandler.sendEmptyMessage(MSG_DISMISS);
                 if (status == BluetoothGatt.GATT_FAILURE) {
                     Log.d(CLASS_TAG, "onConnectionStateChange: Gatt connection failed.");
                     gatt.disconnect();
@@ -145,6 +146,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
         private void readSensor(BluetoothGatt gatt) {
             BluetoothGattCharacteristic characteristic = gatt.getService(WEIGHT_SERVICE).getCharacteristic(WEIGHT_DATA_CHAR);
             gatt.readCharacteristic(characteristic);
+            mHandler.sendEmptyMessage(MSG_DISMISS);
         }
 
         @Override
@@ -152,13 +154,13 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
             if (WEIGHT_DATA_CHAR.equals(characteristic.getUuid())) {
                 mHandler.sendMessage(Message.obtain(null, MSG_WEIGHT,characteristic));
             }
+            mHandler.sendEmptyMessage(MSG_DISMISS);
             setNotifySensor(gatt);
         }
 
         private void setNotifySensor(BluetoothGatt gatt) {
             BluetoothGattCharacteristic characteristic = gatt.getService(WEIGHT_SERVICE).getCharacteristic(WEIGHT_DATA_CHAR);
             gatt.setCharacteristicNotification(characteristic, true);
-            //mHandler.sendEmptyMessage(MSG_DISMISS);
 //            BluetoothGattDescriptor desc = characteristic.getDescriptor(CONFIG_DESCRIPTOR);
 //            desc.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
 //            gatt.writeDescriptor(desc);
@@ -170,6 +172,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                 mHandler.sendMessage(Message.obtain(null, MSG_WEIGHT,characteristic));
             }
         }
+
     };
 
     private static final int MSG_WEIGHT = 101;
@@ -179,17 +182,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             BluetoothGattCharacteristic characteristic;
-            /*if (msg.what == MSG_WEIGHT) {
-                characteristic = (BluetoothGattCharacteristic) msg.obj;
-                if (characteristic.getValue() == null) {
-                    return;
-                }
-                String rawData = new String(characteristic.getValue());
-                //String[] processedData = rawData.split(",");
-                raw_weightData = rawData;
-
-            }*/
-           switch (msg.what) {
+            switch (msg.what) {
                 case MSG_WEIGHT:
                     characteristic = (BluetoothGattCharacteristic) msg.obj;
                     if (characteristic.getValue() == null) {
@@ -202,9 +195,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                     Log.d(CLASS_TAG, "Received string is " + rawData);
                     Log.d(CLASS_TAG, "String length is " + rawData.length());
 
-
                     String[] processedData = rawData.split(",");
-                    Log.d(CLASS_TAG, "Zeroth Space: " + processedData[0]);
                     for (int i = 0; i < processedData.length; i ++) {
                         Log.d(CLASS_TAG, "Processed Data: " + processedData[i]);
                     }
@@ -215,6 +206,8 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
 
                         //timeSince_lastDrink += newTime_sinceStart - oldTime_sinceStart;
 
+                        old_waterLevel = new_waterLevel;
+
                         new_waterLevel = rawWeight / 28.35;
 
                         if (new_waterLevel - old_waterLevel < -0.5) {
@@ -224,7 +217,6 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                             today_waterDrank += old_waterLevel - new_waterLevel;
 
                             //timeSince_lastDrink = 0;
-                            old_waterLevel = new_waterLevel;
                         }
 
                         String packagedData = Double.toString(today_waterDrank);
@@ -238,10 +230,12 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                     }
                     break;
                 case MSG_PROGRESS:
-                    mProgress.setMessage((String) msg.obj);
-                    if (!mProgress.isShowing()) {
-                        mProgress.show();
+                    Log.d(CLASS_TAG, "Progress Dialog case is called.");
+                    if (mProgress == null) {
+                        Log.d(CLASS_TAG, "Progress Dialog is null.");
                     }
+                    mProgress.setMessage((String) msg.obj);
+                    mProgress.show();
                     break;
                 case MSG_DISMISS:
                     mProgress.hide();

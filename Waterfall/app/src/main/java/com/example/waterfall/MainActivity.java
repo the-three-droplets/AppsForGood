@@ -227,8 +227,8 @@ public class MainActivity extends AppCompatActivity implements Medium {
                 for (int i = 0; i < unpackagedData.length; i ++) {
                     Log.d("MainActivity", "Data Received: " + unpackagedData[i]);
                 }
-                tv_percentageDrank.setText(Integer.toString(((int) Double.parseDouble(unpackagedData[0])/64 * 100)) + "%");
-                progressCircle.setProgress((int) Double.parseDouble(unpackagedData[0])/64 * 100);
+                tv_percentageDrank.setText(Integer.toString((int) (Double.parseDouble(unpackagedData[0])/64 * 100)) + "%");
+                progressCircle.setProgress((int)(Double.parseDouble(unpackagedData[0])/64 * 100));
             }
         });
     }
