@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements Medium {
             case R.id.action_scan:
                 ((App) getApplicationContext()).mBTClass.clearDeviceList();
                 ((App) getApplicationContext()).mBTClass.startScan();
-                //mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Searching for Base..."));
+                Handler mHandler = new Handler();
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -186,36 +186,6 @@ public class MainActivity extends AppCompatActivity implements Medium {
         }
     }
 
-    //private static final int MSG_WEIGHT = 101;
-    private static final int MSG_PROGRESS = 201;
-    private static final int MSG_DISMISS = 202;
-    //private static final int MSG_CLEAR = 301;
-    private Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            // BluetoothGattCharacteristic characteristic;
-            switch (msg.what) {
-                /*case MSG_WEIGHT:
-                    characteristic = (BluetoothGattCharacteristic) msg.obj;
-                    if (characteristic.getValue() == null) {
-                        return;
-                    }
-                    updateValues(characteristic);
-                    break;*/
-                /*case MSG_PROGRESS:
-                    mProgress.setMessage((String) msg.obj);
-                    if (!mProgress.isShowing()) {
-                        mProgress.show();
-                    }
-                    break;
-                case MSG_DISMISS:
-                    mProgress.hide();
-                    break;*/
-                /*case MSG_CLEAR:
-                    clearDisplayValues();
-                    break;*/
-            }
-        }
-    };
 
     @Override
     public void sendData(final String str) {
