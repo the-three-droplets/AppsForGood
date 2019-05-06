@@ -1,5 +1,5 @@
 package com.example.waterfall;
-
+//import com.example.waterfall.App;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -213,6 +213,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                         if (new_waterLevel - old_waterLevel < -0.5) {
                             // Drink was taken
                             // Send data to firebase
+                            ((App) context).pushWeight(new_waterLevel);
 
                             today_waterDrank += old_waterLevel - new_waterLevel;
 
