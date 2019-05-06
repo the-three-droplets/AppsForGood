@@ -99,13 +99,6 @@ public class Settings extends AppCompatActivity {
 
         ImageButton bluetoothButton = (ImageButton) findViewById(R.id.bluetooth_button);
 
-        bluetoothButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openBluetoothPage = new Intent(Settings.this, BT.class);
-                startActivity(openBluetoothPage);
-            }
-        });
 
         timeIntervalEdit = (EditText) findViewById(R.id.time_interval_edit);
         waterTotalEdit = (EditText) findViewById(R.id.water_total_edit);

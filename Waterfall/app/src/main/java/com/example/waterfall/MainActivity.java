@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements Medium {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        //mHandler.sendEmptyMessage(MSG_DISMISS);
                         invalidateOptionsMenu();
                     }
                 }, 3000);

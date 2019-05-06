@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 
 public class Statistics extends AppCompatActivity {
@@ -69,14 +68,7 @@ public class Statistics extends AppCompatActivity {
         tabLayout.getTabAt(2).setText(R.string.weekly_header);
 
         ImageButton bluetoothButton = (ImageButton) findViewById(R.id.bluetooth_button);
-
-        bluetoothButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openBluetoothPage = new Intent(Statistics.this, BT.class);
-                startActivity(openBluetoothPage);
-            }
-        });
+        
     }
 
     private void setupViewPager(ViewPager viewpager) {

@@ -27,7 +27,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BT" />
         <activity android:name=".Goals" />
         <activity android:name=".Statistics" />
         <activity android:name=".Settings" />
@@ -38,8 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name=".BTService"/>
 
     </application>
 

@@ -7,7 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
 
@@ -55,12 +54,5 @@ public class Goals extends AppCompatActivity {
 
         ImageButton bluetoothButton = (ImageButton) findViewById(R.id.bluetooth_button);
 
-        bluetoothButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openBluetoothPage = new Intent(Goals.this, BT.class);
-                startActivity(openBluetoothPage);
-            }
-        });
     }
 }
