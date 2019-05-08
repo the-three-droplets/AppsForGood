@@ -1,6 +1,7 @@
 package com.example.waterfall;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -168,6 +169,10 @@ public class Settings extends AppCompatActivity {
             String waterTotal = waterTotalEdit.getText().toString();
             String phoneStatus;
             String voiceStatus;
+            String start_hour = Integer.toString(start_awakeTime.getHour());
+            String start_minute = Integer.toString(start_awakeTime.getMinute());
+            String end_hour = Integer.toString(end_awakeTime.getHour());
+            String end_minute = Integer.toString(end_awakeTime.getMinute());
             if (phoneNotif.isChecked()) {
                 phoneStatus = "on";
             }
@@ -183,7 +188,7 @@ public class Settings extends AppCompatActivity {
             FileOutputStream fos = null;
             try {
                 fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
-                fos.write((timeInterval + "," + waterTotal + "," + voiceStatus + "," + phoneStatus + "," + fields[4] + "," + fields[5] + "," + fields[6] + "," + fields[7] + "," + fields[8]).getBytes());
+                fos.write((timeInterval + "," + waterTotal + "," + voiceStatus + "," + phoneStatus + "," + start_hour + "," + start_minute + "," + end_hour + "," + end_minute + "," + fields[8]).getBytes());
                 Toast.makeText(this, "Saved setting to " + getFilesDir() + "/" + FILE_NAME, Toast.LENGTH_SHORT).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

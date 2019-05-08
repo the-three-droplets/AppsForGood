@@ -31,7 +31,7 @@
     <string name="CLIENT_CHARACTERISTIC_CONFIG">00002902-0000-1000-8000-00805f9b34fb</string>
     <string name="scan_button">Scan</string>
     <string name="awake_text">When are you awake?</string>
-    <string name="dash">-</string>
+    <string name="dash">to</string>
     <string name="record_start">Start Recording</string>
     <string name="record_stop">Stop Recording</string>
 

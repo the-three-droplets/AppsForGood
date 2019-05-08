@@ -104,6 +104,16 @@
         app:layout_constraintLeft_toLeftOf="parent"
         />
 
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stop_test"
+        android:timePickerMode="clock">
+
+    </TimePicker>
+
 
     <RelativeLayout
         android:id="@+id/bottom_navbar"
