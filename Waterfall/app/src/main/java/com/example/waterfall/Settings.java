@@ -3,6 +3,7 @@ package com.example.waterfall;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -150,6 +151,10 @@ public class Settings extends AppCompatActivity {
             waterTotalEdit.setText(ideal_waterTotal);
             phoneNotif.setChecked(notif_phoneStatus);
             voiceNotif.setChecked(notif_voiceStatus);
+            start_awakeTime.setHour(Integer.parseInt(fields[4]));
+            start_awakeTime.setMinute(Integer.parseInt(fields[5]));
+            end_awakeTime.setHour(Integer.parseInt(fields[6]));
+            end_awakeTime.setHour(Integer.parseInt(fields[7]));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
