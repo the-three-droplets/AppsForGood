@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -27,7 +28,6 @@ public class Statistics extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-
                     case R.id.ic_home:
                         Intent openHome = new Intent(Statistics.this, MainActivity.class);
                         startActivity(openHome);
@@ -46,7 +46,6 @@ public class Statistics extends AppCompatActivity {
                     case R.id.ic_chart:
                         break;
                 }
-
                 return false;
             }
         });
@@ -68,14 +67,18 @@ public class Statistics extends AppCompatActivity {
         tabLayout.getTabAt(2).setText(R.string.weekly_header);
 
         ImageButton bluetoothButton = (ImageButton) findViewById(R.id.bluetooth_button);
-
     }
 
     private void setupViewPager(ViewPager viewpager) {
-        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HourlyFragment());
-        adapter.addFragment(new DailyFragment());
-        adapter.addFragment(new WeeklyFragment());
-        viewpager.setAdapter(adapter);
+        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.navbarBottom);
+        Menu bottomNavBar = bottomNavigation.getMenu();
+        MenuItem item = bottomNavBar.getItem(3);
+        if(item.isChecked() == true) {
+            SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+            adapter.addFragment(new HourlyFragment());
+            adapter.addFragment(new DailyFragment());
+            adapter.addFragment(new WeeklyFragment());
+            viewpager.setAdapter(adapter);
+        }
     }
 }

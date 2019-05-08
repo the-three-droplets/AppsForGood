@@ -222,29 +222,25 @@ public class App extends Application {
 
     }
 
-    public void pushWeight(double ounces) {
-        count++;
+    public void pushWeight(long time, double ounces) {
+//        count++;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Weight");
-        Log.d("MainActivityCount1", Long.toString(count));
-        String countString = Long.toString(count);
-        myRef.child(countString).setValue(ounces);
-        counter();
+        Log.d("MainActivityCount1", Long.toString(time));
+        String timeString = Long.toString(time);
+        myRef.child(timeString).setValue(ounces);
+//        counter();
     }
 
-    public int getData(String location, int number) {
+    public void getData(String location) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(location);
-        final String key = Integer.toString(number);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot child : dataSnapshot.getChildren()){
-                    if(child.getKey().equals(key)) {
-                        Log.d("MainActivityValue",child.getValue().toString());
-                        dataFire = Integer.parseInt(child.getValue().toString());
-                        Log.d("MainActivityReturn",Integer.toString(dataFire));
-                    }
+                    Log.d("MainActivityValue",child.getValue().toString());
+                    Log.d("MainActivityReturn",Integer.toString(dataFire));
                 }
             }
             @Override
@@ -252,12 +248,11 @@ public class App extends Application {
                 Log.w("MainActivity", "Failed to read value.", error.toException());
             }
         });
-        return dataFire;
     }
 
-    public void counter() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference countRef = database.getReference("Count");
-        countRef.child("1").setValue(count);
-    }
+//    public void counter() {
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference countRef = database.getReference("Count");
+//        countRef.child("1").setValue(count);
+//    }
 }

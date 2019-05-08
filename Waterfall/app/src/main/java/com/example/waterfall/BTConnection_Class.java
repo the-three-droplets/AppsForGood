@@ -13,6 +13,9 @@ import android.os.Message;
 import android.util.Log;
 import android.util.SparseArray;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.UUID;
 
 public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
@@ -41,8 +44,8 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
     private double rawWeight;
     private double old_waterLevel;
     private double new_waterLevel;
-    private double oldTime_sinceStart;
-    private double newTime_sinceStart;
+    private long oldTime_sinceStart;
+    private long newTime_sinceStart;
     private double timeSince_lastDrink;
     private double today_waterDrank;
 
@@ -210,7 +213,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                     try {
 
                         rawWeight = Double.parseDouble(processedData[0]);
-                        newTime_sinceStart = Double.parseDouble(processedData[1]);
+                        newTime_sinceStart = Long.parseLong(processedData[1]);
 
                         timeSince_lastDrink += newTime_sinceStart - oldTime_sinceStart;
 
@@ -224,8 +227,8 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
 
                         if (new_waterLevel - old_waterLevel < -0.5) {
                             // Drink was taken
-                            // Send data to firebase
-                            ((App) context).pushWeight(new_waterLevel);
+                            Log.d(CLASS_TAG, "Firebase");
+                            ((App) context).pushWeight(newTime_sinceStart, new_waterLevel);
 
                             today_waterDrank += old_waterLevel - new_waterLevel;
 
@@ -241,7 +244,6 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                         Log.d(CLASS_TAG, "Does not pass try statement. Error: " + e);
                         return;
                     }
-
                     break;
                 case MSG_PROGRESS:
                     Log.d(CLASS_TAG, "Progress Dialog case is called.");
