@@ -13,9 +13,6 @@ import android.os.Message;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.UUID;
 
 public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
@@ -235,7 +232,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                             timeSince_lastDrink = 0;
                         }
 
-                        String packagedData = Double.toString(today_waterDrank);
+                        String packagedData = Double.toString(today_waterDrank) + "," + Double.toString(timeSince_lastDrink);
                         Log.d(CLASS_TAG, "Packaged Data: " + packagedData);
 
                         mInterface.sendData(packagedData);

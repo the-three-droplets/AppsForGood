@@ -4,10 +4,10 @@
     <string name="settings_label">Settings</string>
     <string name="stats_label">More Stats</string>
     <string name="recorder_label">Audio Recorder</string>
-    <string name="progress">62%</string>
-    <string name="progress_detail">40 oz out of 64 oz</string>
-    <string name="home_left_text">30 minutes since last drink</string>
-    <string name="home_right_text">19 oz drank on average per day</string>
+    <string name="progress">0%</string>
+    <string name="progress_detail">0 oz out of 64 oz</string>
+    <string name="home_left_text">0 minutes since last drink</string>
+    <string name="home_right_text">0 oz drank on average per day</string>
     <string name="sound_notiftext">Voice</string>
     <string name="phone_notiftext">Phone</string>
     <string name="light_notiftext">Light on Bottle/Base</string>
