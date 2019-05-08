@@ -68,7 +68,7 @@ public class Statistics extends AppCompatActivity {
         tabLayout.getTabAt(2).setText(R.string.weekly_header);
 
         ImageButton bluetoothButton = (ImageButton) findViewById(R.id.bluetooth_button);
-        
+
     }
 
     private void setupViewPager(ViewPager viewpager) {

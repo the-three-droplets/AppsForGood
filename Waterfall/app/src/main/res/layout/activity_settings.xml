@@ -57,7 +57,7 @@
         android:text="@string/notif_setting_header"
         android:textSize="40sp"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_navbar" />
 
@@ -72,7 +72,7 @@
         android:textOn="@string/sound_notiftext"
         android:textSize="15sp"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHeight_percent="0.25"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/notif_header"
         app:layout_constraintWidth_default="percent"
@@ -89,7 +89,7 @@
         android:textOn="@string/phone_notiftext"
         android:textSize="15sp"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHeight_percent="0.25"
         app:layout_constraintLeft_toRightOf="@id/sound_notifpic"
         app:layout_constraintTop_toBottomOf="@id/notif_header"
         app:layout_constraintWidth_default="percent"
@@ -103,7 +103,7 @@
         android:text="@string/custom_setting_header"
         android:textSize="40sp"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sound_notifpic" />
 
@@ -113,7 +113,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/time_interval_text"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -127,7 +127,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/default_time_interval"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintLeft_toRightOf="@id/time_interval_text"
@@ -142,7 +142,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/time_interval_unit"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintRight_toRightOf="parent"
@@ -156,7 +156,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/water_total_text"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -170,7 +170,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/default_water_total"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintLeft_toRightOf="@id/water_total_text"
@@ -185,7 +185,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/water_total_unit"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintRight_toRightOf="parent"
@@ -193,16 +193,61 @@
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent="0.2" />
 
+    <TextView
+        android:id="@+id/awake_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintTop_toBottomOf="@id/water_total_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/awake_text"
+        />
+
+    <TimePicker
+        android:id="@+id/awake_startEdit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/water_total_edit"
+        app:layout_constraintLeft_toRightOf="@id/awake_text">
+
+    </TimePicker>
+
+    <TextView
+        android:id="@+id/dash"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.1"
+        android:text="@string/dash"
+        app:layout_constraintLeft_toRightOf="@id/awake_startEdit"
+        app:layout_constraintTop_toBottomOf="@id/water_total_unit"
+        />
+
+    <TimePicker
+        android:id="@+id/awake_endEdit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/water_total_unit"
+        app:layout_constraintLeft_toRightOf="@id/dash"
+        >
+
+    </TimePicker>
+
     <Button
         android:id="@+id/set_button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="@string/set_button_text"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintHeight_percent="0.07"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/water_total_text" />
+        app:layout_constraintTop_toBottomOf="@id/awake_text" />
 
     <RelativeLayout
         android:id="@+id/bottom_navbar"

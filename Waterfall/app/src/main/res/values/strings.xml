@@ -3,7 +3,7 @@
     <string name="home_label">Home</string>
     <string name="settings_label">Settings</string>
     <string name="stats_label">More Stats</string>
-    <string name="goals_label">Goals</string>
+    <string name="recorder_label">Audio Recorder</string>
     <string name="progress">62%</string>
     <string name="progress_detail">40 oz out of 64 oz</string>
     <string name="home_left_text">30 minutes since last drink</string>
@@ -30,6 +30,10 @@
     <string name="channel_description">Channel Description</string>
     <string name="CLIENT_CHARACTERISTIC_CONFIG">00002902-0000-1000-8000-00805f9b34fb</string>
     <string name="scan_button">Scan</string>
+    <string name="awake_text">When are you awake?</string>
+    <string name="dash">-</string>
+    <string name="record_start">Start Recording</string>
+    <string name="record_stop">Stop Recording</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

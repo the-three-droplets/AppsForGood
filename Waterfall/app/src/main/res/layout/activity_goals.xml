@@ -50,10 +50,10 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/goals_header"
+        android:id="@+id/recorder_header"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="@string/goals_label"
+        android:text="@string/recorder_label"
         android:textSize="50sp"
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.1"
@@ -61,28 +61,48 @@
         app:layout_constraintTop_toBottomOf="@id/top_navbar"
         android:gravity="center"/>
 
-
-    <CalendarView
-        android:id="@+id/calendar"
+    <Button
+        android:id="@+id/start_record"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.62"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/goals_header"
-        >
-
-
-    </CalendarView>
-
-    <TextView
-        android:id="@+id/streak_text"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_default="percent"
+        android:text="@string/record_start"
+        android:textSize="20sp"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendar" />
+        app:layout_constraintTop_toBottomOf="@id/recorder_header"
+        />
+
+    <Button
+        android:id="@+id/stop_record"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/record_stop"
+        android:textSize="20sp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start_record"
+        />
+
+    <Button
+        android:id="@+id/play_test"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Test Play"
+        android:textSize="20sp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/stop_record"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <Button
+        android:id="@+id/stop_test"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Test Stop"
+        android:textSize="20sp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/play_test"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
 
 
     <RelativeLayout
@@ -95,7 +115,7 @@
         app:layout_constraintHeight_default="percent"
         app:layout_constraintHeight_percent="0.09"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/streak_text">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navbarBottom"

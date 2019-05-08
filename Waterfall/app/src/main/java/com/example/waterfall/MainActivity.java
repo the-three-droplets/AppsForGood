@@ -2,7 +2,6 @@ package com.example.waterfall;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -37,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements Medium {
     SparseArray<BluetoothDevice> devices;
     //private ProgressDialog mProgress;
 
-    String originalSettings = "1,64";
-
+    private String ideal_waterTotal;
+    private String max_timeInterval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,37 +105,14 @@ public class MainActivity extends AppCompatActivity implements Medium {
         //mProgress.setCancelable(false);
 
 
-        final String PREFS_NAME = "MyPrefsFile";
-
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-
-        if (settings.getBoolean("my_first_time", true)) {
-            FileOutputStream outputStream = null;
-            try {
-                outputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
-                outputStream.write(originalSettings.getBytes());
-                outputStream.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Log.d("Comments", "First time");
-
-            // first time task
-
-            // record the fact that the app has been started at least once
-            settings.edit().putBoolean("my_first_time", false).commit();
-        }
-
         FileInputStream fis = null;
         try {
             fis = openFileInput(FILE_NAME);
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             String[] fields = br.readLine().split(",");
-            String current_timeInterval = fields[0];
-            String current_waterTotal = fields[1];
+            max_timeInterval = fields[0];
+            ideal_waterTotal = fields[1];
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -145,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements Medium {
         }
 
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.top_navbar));
+
     }
 
     @Override
@@ -196,8 +172,8 @@ public class MainActivity extends AppCompatActivity implements Medium {
                 for (int i = 0; i < unpackagedData.length; i ++) {
                     Log.d("MainActivity", "Data Received: " + unpackagedData[i]);
                 }
-                tv_percentageDrank.setText(Integer.toString((int) (Double.parseDouble(unpackagedData[0])/64 * 100)) + "%");
-                progressCircle.setProgress((int)(Double.parseDouble(unpackagedData[0])/64 * 100));
+                tv_percentageDrank.setText(Integer.toString((int) (Double.parseDouble(unpackagedData[0])/Integer.parseInt(ideal_waterTotal) * 100)) + "%");
+                progressCircle.setProgress((int)(Double.parseDouble(unpackagedData[0])/Integer.parseInt(ideal_waterTotal) * 100));
             }
         });
     }

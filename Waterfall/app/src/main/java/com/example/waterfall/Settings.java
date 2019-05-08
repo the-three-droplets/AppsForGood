@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -26,8 +27,18 @@ import java.io.InputStreamReader;
 public class Settings extends AppCompatActivity {
 
     private static final String FILE_NAME = "settings.txt";
-    EditText timeIntervalEdit;
-    EditText waterTotalEdit;
+    private EditText timeIntervalEdit;
+    private EditText waterTotalEdit;
+    private ToggleButton voiceNotif;
+    private ToggleButton phoneNotif;
+    private TimePicker start_awakeTime;
+    private TimePicker end_awakeTime;
+
+    private String ideal_waterTotal;
+    private String max_timeInterval;
+
+    private boolean notif_phoneStatus;
+    private boolean notif_voiceStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +79,14 @@ public class Settings extends AppCompatActivity {
         MenuItem item = bottomNavBar.getItem(1);
         item.setChecked(true);
 
-        ToggleButton soundNotif = (ToggleButton) findViewById(R.id.sound_notifpic);
-        ToggleButton phoneNotif = (ToggleButton) findViewById(R.id.phone_notifpic);
+        voiceNotif = (ToggleButton) findViewById(R.id.sound_notifpic);
+        phoneNotif = (ToggleButton) findViewById(R.id.phone_notifpic);
+        start_awakeTime = (TimePicker) findViewById(R.id.awake_startEdit);
+        end_awakeTime = (TimePicker) findViewById(R.id.awake_endEdit);
+
         final Resources res = getResources();
 
-        soundNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        voiceNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -117,10 +131,24 @@ public class Settings extends AppCompatActivity {
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader br = new BufferedReader(isr);
             String[] fields = br.readLine().split(",");
-            String current_timeInterval = fields[0];
-            String current_waterTotal = fields[1];
-            timeIntervalEdit.setText(current_timeInterval);
-            waterTotalEdit.setText(current_waterTotal);
+            max_timeInterval = fields[0];
+            ideal_waterTotal = fields[1];
+            if (fields[2].equals("on")) {
+                notif_voiceStatus = true;
+            }
+            else {
+                notif_voiceStatus = false;
+            }
+            if (fields[3].equals("on")) {
+                notif_phoneStatus = true;
+            }
+            else {
+                notif_phoneStatus = false;
+            }
+            timeIntervalEdit.setText(max_timeInterval);
+            waterTotalEdit.setText(ideal_waterTotal);
+            phoneNotif.setChecked(notif_phoneStatus);
+            voiceNotif.setChecked(notif_voiceStatus);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -129,27 +157,56 @@ public class Settings extends AppCompatActivity {
     }
 
     public void saveSettings(View v) {
-        String timeInterval = timeIntervalEdit.getText().toString();
-        String waterTotal = waterTotalEdit.getText().toString();
-        FileOutputStream fos = null;
-        try {
-            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
-            fos.write((timeInterval + "," + waterTotal).getBytes());
 
-            Toast.makeText(this, "Saved setting to " + getFilesDir() + "/" + FILE_NAME, Toast.LENGTH_SHORT).show();
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput(FILE_NAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String[] fields = br.readLine().split(",");
+            String timeInterval = timeIntervalEdit.getText().toString();
+            String waterTotal = waterTotalEdit.getText().toString();
+            String phoneStatus;
+            String voiceStatus;
+            if (phoneNotif.isChecked()) {
+                phoneStatus = "on";
+            }
+            else {
+                phoneStatus = "off";
+            }
+            if (voiceNotif.isChecked()) {
+                voiceStatus = "on";
+            }
+            else {
+                voiceStatus = "off";
+            }
+            FileOutputStream fos = null;
+            try {
+                fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+                fos.write((timeInterval + "," + waterTotal + "," + voiceStatus + "," + phoneStatus + "," + fields[4] + "," + fields[5] + "," + fields[6] + "," + fields[7] + "," + fields[8]).getBytes());
+                Toast.makeText(this, "Saved setting to " + getFilesDir() + "/" + FILE_NAME, Toast.LENGTH_SHORT).show();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (fos != null) {
+                    try {
+                        fos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
+
+        ((App) getApplicationContext()).updateSettings();
     }
 
 }

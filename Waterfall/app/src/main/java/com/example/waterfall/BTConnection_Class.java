@@ -34,6 +34,9 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
 
     private Medium mInterface;
 
+    // In Hours
+    private int maxTime;
+
     //Data
     private double rawWeight;
     private double old_waterLevel;
@@ -46,14 +49,19 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
 
     // Constructor
 
-    public BTConnection_Class(Context context) {
+    public BTConnection_Class(Context context, int maxTime) {
         this.context = context;
         mBTAdapter = BluetoothAdapter.getDefaultAdapter();
         mDevices = new SparseArray<BluetoothDevice>();
+        this.maxTime = maxTime;
 
         old_waterLevel = 12;
         oldTime_sinceStart = 0;
         // Initialize old values with firebase
+    }
+
+    public void updateTime(int maxTime) {
+        this.maxTime = maxTime;
     }
 
     public SparseArray<BluetoothDevice> getDevices() {
@@ -202,9 +210,13 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                     try {
 
                         rawWeight = Double.parseDouble(processedData[0]);
-                        //newTime_sinceStart = Double.parseDouble(processedData[1]);
+                        newTime_sinceStart = Double.parseDouble(processedData[1]);
 
-                        //timeSince_lastDrink += newTime_sinceStart - oldTime_sinceStart;
+                        timeSince_lastDrink += newTime_sinceStart - oldTime_sinceStart;
+
+                        if (timeSince_lastDrink > maxTime * 3600) {
+                            ((App) context).notifyUser();
+                        }
 
                         old_waterLevel = new_waterLevel;
 
@@ -217,7 +229,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
 
                             today_waterDrank += old_waterLevel - new_waterLevel;
 
-                            //timeSince_lastDrink = 0;
+                            timeSince_lastDrink = 0;
                         }
 
                         String packagedData = Double.toString(today_waterDrank);
@@ -229,6 +241,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                         Log.d(CLASS_TAG, "Does not pass try statement. Error: " + e);
                         return;
                     }
+
                     break;
                 case MSG_PROGRESS:
                     Log.d(CLASS_TAG, "Progress Dialog case is called.");
