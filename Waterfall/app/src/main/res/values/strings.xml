@@ -34,6 +34,8 @@
     <string name="dash">to</string>
     <string name="record_start">Start Recording</string>
     <string name="record_stop">Stop Recording</string>
+    <string name="play_current">Play Stored Recording</string>
+    <string name="stop_current">Stop Stored Recording</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
