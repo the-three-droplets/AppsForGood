@@ -206,18 +206,39 @@
         android:textSize="16sp"
         />
 
-    <TimePicker
-        android:id="@+id/awake_startEdit"
+    <EditText
+        android:id="@+id/awake_startHourEdit"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintWidth_percent="0.33"
+        app:layout_constraintWidth_percent="0.16"
         app:layout_constraintTop_toBottomOf="@id/water_total_edit"
         app:layout_constraintLeft_toRightOf="@id/awake_text"
-        android:timePickerMode="spinner"
-        >
+        android:inputType="number"
+        />
 
-    </TimePicker>
+    <TextView
+        android:id="@+id/awake_startColon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@id/awake_startHourEdit"
+        app:layout_constraintTop_toBottomOf="@id/water_total_text"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.01"
+        android:text=":"
+        android:gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/awake_startMinuteEdit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@id/awake_startColon"
+        app:layout_constraintTop_toBottomOf="@id/water_total_text"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.16"
+        android:inputType="number"
+        />
 
     <TextView
         android:id="@+id/dash"
@@ -226,23 +247,43 @@
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintWidth_percent="0.04"
         android:text="@string/dash"
-        app:layout_constraintLeft_toRightOf="@id/awake_startEdit"
+        app:layout_constraintLeft_toRightOf="@id/awake_startMinuteEdit"
         app:layout_constraintTop_toBottomOf="@id/water_total_unit"
         android:gravity="center"
         />
 
-    <TimePicker
-        android:id="@+id/awake_endEdit"
+    <EditText
+        android:id="@+id/awake_endHourEdit"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintWidth_percent="0.33"
+        app:layout_constraintWidth_percent="0.16"
         app:layout_constraintTop_toBottomOf="@id/water_total_unit"
         app:layout_constraintLeft_toRightOf="@id/dash"
-        android:timePickerMode="spinner"
-        >
+        android:inputType="number"
+        />
 
-    </TimePicker>
+    <TextView
+        android:id="@+id/awake_endColon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.01"
+        app:layout_constraintTop_toBottomOf="@id/water_total_unit"
+        app:layout_constraintLeft_toRightOf="@id/awake_endHourEdit"
+        android:text=":"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/awake_endMinuteEdit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.16"
+        app:layout_constraintTop_toBottomOf="@id/water_total_unit"
+        app:layout_constraintLeft_toRightOf="@id/awake_endColon"
+        android:inputType="number"
+        />
 
     <Button
         android:id="@+id/set_button"

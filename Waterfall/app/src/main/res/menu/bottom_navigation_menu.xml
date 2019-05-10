@@ -11,13 +11,12 @@
         android:title="@string/settings_label"/>
     <item
         android:id="@+id/ic_goals"
-        android:icon="@drawable/ic_star_white"
+        android:icon="@drawable/ic_mic_white_24dp"
         android:title="@string/recorder_label"/>
     <item
         android:id="@+id/ic_chart"
         android:icon="@drawable/ic_chart_white"
         android:title="@string/stats_label"/>
-
 
 
 </menu>

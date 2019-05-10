@@ -1,9 +1,7 @@
 package com.example.waterfall;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -33,8 +30,10 @@ public class Settings extends AppCompatActivity {
     private EditText waterTotalEdit;
     private ToggleButton voiceNotif;
     private ToggleButton phoneNotif;
-    private TimePicker start_awakeTime;
-    private TimePicker end_awakeTime;
+    private EditText start_awakeHourEdit;
+    private EditText start_awakeMinuteEdit;
+    private EditText end_awakeHourEdit;
+    private EditText end_awakeMinuteEdit;
 
     private String ideal_waterTotal;
     private String max_timeInterval;
@@ -83,8 +82,10 @@ public class Settings extends AppCompatActivity {
 
         voiceNotif = (ToggleButton) findViewById(R.id.sound_notifpic);
         phoneNotif = (ToggleButton) findViewById(R.id.phone_notifpic);
-        start_awakeTime = (TimePicker) findViewById(R.id.awake_startEdit);
-        end_awakeTime = (TimePicker) findViewById(R.id.awake_endEdit);
+        start_awakeHourEdit = (EditText) findViewById(R.id.awake_startHourEdit);
+        start_awakeMinuteEdit = (EditText) findViewById(R.id.awake_startMinuteEdit);
+        end_awakeHourEdit = (EditText) findViewById(R.id.awake_endHourEdit);
+        end_awakeMinuteEdit = (EditText) findViewById(R.id.awake_endMinuteEdit);
 
         final Resources res = getResources();
 
@@ -151,10 +152,10 @@ public class Settings extends AppCompatActivity {
             waterTotalEdit.setText(ideal_waterTotal);
             phoneNotif.setChecked(notif_phoneStatus);
             voiceNotif.setChecked(notif_voiceStatus);
-            start_awakeTime.setHour(Integer.parseInt(fields[4]));
-            start_awakeTime.setMinute(Integer.parseInt(fields[5]));
-            end_awakeTime.setHour(Integer.parseInt(fields[6]));
-            end_awakeTime.setHour(Integer.parseInt(fields[7]));
+            start_awakeHourEdit.setText(fields[4]);
+            start_awakeMinuteEdit.setText(fields[5]);
+            end_awakeHourEdit.setText(fields[6]);
+            end_awakeMinuteEdit.setText(fields[7]);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -174,10 +175,10 @@ public class Settings extends AppCompatActivity {
             String waterTotal = waterTotalEdit.getText().toString();
             String phoneStatus;
             String voiceStatus;
-            String start_hour = Integer.toString(start_awakeTime.getHour());
-            String start_minute = Integer.toString(start_awakeTime.getMinute());
-            String end_hour = Integer.toString(end_awakeTime.getHour());
-            String end_minute = Integer.toString(end_awakeTime.getMinute());
+            String start_hour = start_awakeHourEdit.getText().toString();
+            String start_minute = start_awakeMinuteEdit.getText().toString();
+            String end_hour = end_awakeHourEdit.getText().toString();
+            String end_minute = end_awakeMinuteEdit.getText().toString();
             if (phoneNotif.isChecked()) {
                 phoneStatus = "on";
             }
