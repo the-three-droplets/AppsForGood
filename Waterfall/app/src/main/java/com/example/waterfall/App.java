@@ -141,6 +141,10 @@ public class App extends Application {
             return;
         }
 
+        if (currentHour == 0 && currentMinute < Integer.parseInt(max_timeInterval) * 60) {
+            mBTClass.resetDay();
+        }
+
         if (notif_phoneStatus) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.threedroplets)

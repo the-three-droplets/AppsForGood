@@ -177,8 +177,8 @@ public class MainActivity extends AppCompatActivity implements Medium {
                 }
                 tv_percentageDrank.setText(Integer.toString((int) (Double.parseDouble(unpackagedData[0])/Integer.parseInt(ideal_waterTotal) * 100)) + "%");
                 progressCircle.setProgress((int)(Double.parseDouble(unpackagedData[0])/Integer.parseInt(ideal_waterTotal) * 100));
-                tv_fractionDrank.setText(unpackagedData[0] + "oz drank out of " + ideal_waterTotal + " oz");
-                tv_leftText.setText(Double.toString(Double.parseDouble(unpackagedData[1])/60) + " minutes since last drink.");
+                tv_fractionDrank.setText(Integer.toString((int)Double.parseDouble(unpackagedData[0])) + "oz drank out of " + ideal_waterTotal + " oz");
+                tv_leftText.setText(Integer.toString((int)(Double.parseDouble(unpackagedData[1])/60)) + " minutes since last drink.");
                 //Use Firebase to set Right Text
             }
         });

@@ -68,6 +68,10 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
         return mDevices;
     }
 
+    public void resetDay() {
+        today_waterDrank = 0;
+    }
+
     public void clearDeviceList() {
         mDevices.clear();
     }
@@ -75,7 +79,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
     public void startScan() {
         Log.d(CLASS_TAG, "startScan: Called");
         mBTAdapter.startLeScan(this);
-        mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Searching for Base..."));
+        mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Searching for Water Bottle..."));
         mHandler.postDelayed(mStopRunnable,2500);
         mHandler.sendEmptyMessage(MSG_DISMISS);
     }
@@ -127,7 +131,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
                 Log.d(CLASS_TAG, "onConnectionStateChange: Device connected.");
-                mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Discovering Services..."));
+                mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Connecting to Water Bottle..."));
                 gatt.discoverServices();
             }
             else if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_DISCONNECTED) {
@@ -147,7 +151,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
 
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-            mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Retrieving Data..."));
+            //mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Retrieving Data..."));
             readSensor(gatt);
         }
 
