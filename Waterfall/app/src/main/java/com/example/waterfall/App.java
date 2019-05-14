@@ -200,6 +200,11 @@ public class App extends Application {
             else {
                 notif_phoneStatus = false;
             }
+            start_awakeHour = Integer.parseInt(fields[4]);
+            start_awakeMinute = Integer.parseInt(fields[5]);
+            end_awakeHour = Integer.parseInt(fields[6]);
+            end_awakeHour = Integer.parseInt(fields[7]);
+            savePath = fields[8];
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
