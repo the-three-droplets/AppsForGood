@@ -151,9 +151,9 @@ public class Goals extends AppCompatActivity {
             String[] fields = br.readLine().split(",");
             FileOutputStream fos = null;
             try {
-
                 fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
                 fos.write((fields[0] + "," + fields[1] + "," + fields[2] + "," + fields[3] + "," + fields[4] + "," + fields[5] + "," + fields[6] + "," + fields[7] + "," + ((App) getApplicationContext()).savePath).getBytes());
+                ((App) getApplicationContext()).updateSettings();
                 Toast.makeText(this, "Saved setting to " + getFilesDir() + "/" + FILE_NAME, Toast.LENGTH_SHORT).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
