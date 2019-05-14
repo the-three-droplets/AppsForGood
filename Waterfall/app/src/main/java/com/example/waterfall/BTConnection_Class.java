@@ -212,7 +212,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                         Log.d(CLASS_TAG, "Processed Data: " + processedData[i]);
                     }
                     try {
-
+                        oldTime_sinceStart = newTime_sinceStart
                         rawWeight = Double.parseDouble(processedData[0]);
                         newTime_sinceStart = Long.parseLong(processedData[1]);
 
