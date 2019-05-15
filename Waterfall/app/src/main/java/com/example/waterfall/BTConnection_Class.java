@@ -218,7 +218,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
 
                         timeSince_lastDrink += newTime_sinceStart - oldTime_sinceStart;
 
-                        if (timeSince_lastDrink > maxTime * 3600) {
+                        if (timeSince_lastDrink > maxTime * 60) {
                             ((App) context).notifyUser();
                         }
 

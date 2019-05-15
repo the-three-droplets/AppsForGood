@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -149,12 +150,20 @@ public class App extends Application {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.threedroplets)
                     .setContentTitle("Waterfall")
-                    .setContentText("Please drink some water. It has been more than " + max_timeInterval + " hour(s) since your last drink.")
+                    .setContentText("Please drink some water. It has been more than " + max_timeInterval + " minute(s) since your last drink.")
                     .setPriority(NotificationCompat.PRIORITY_HIGH);
 
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
 
             managerCompat.notify(8, builder.build());
+
+            Handler handler3 = new Handler();
+            handler3.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(CLASS_TAG, "Delay for Notif");
+                }
+            }, 10000);
         }
 
         if (notif_voiceStatus) {
@@ -166,6 +175,14 @@ public class App extends Application {
                         .setPriority(NotificationCompat.PRIORITY_HIGH);
                 NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
                 managerCompat.notify(8, builder.build());
+
+                Handler handler2 = new Handler();
+                handler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(CLASS_TAG, "Delay for Audio Notif");
+                    }
+                }, 10000);
             }
             else {
                 audioPlayer = new MediaPlayer();
@@ -176,6 +193,13 @@ public class App extends Application {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Handler handler1 = new Handler();
+                handler1.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(CLASS_TAG, "Delay for Audio");
+                    }
+                }, 10000);
             }
         }
     }

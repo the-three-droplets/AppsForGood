@@ -18,7 +18,7 @@
     <string name="set_button_text">Set Changes</string>
     <string name="default_time_interval">1</string>
     <string name="default_water_total">64</string>
-    <string name="time_interval_unit">hour(s)</string>
+    <string name="time_interval_unit">minute(s)</string>
     <string name="water_total_unit">ounce(s)</string>
     <string name="hourly_header">Hourly</string>
     <string name="daily_header">Daily</string>
