@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -114,8 +113,6 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        ImageButton bluetoothButton = (ImageButton) findViewById(R.id.bluetooth_button);
-
 
         timeIntervalEdit = (EditText) findViewById(R.id.time_interval_edit);
         waterTotalEdit = (EditText) findViewById(R.id.water_total_edit);
@@ -124,7 +121,12 @@ public class Settings extends AppCompatActivity {
         saveBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveSettings(v);
+                if (!timeIntervalEdit.getText().toString().isEmpty() && !waterTotalEdit.getText().toString().isEmpty() && !start_awakeHourEdit.getText().toString().isEmpty() && !start_awakeMinuteEdit.getText().toString().isEmpty() && !end_awakeHourEdit.getText().toString().isEmpty() && !end_awakeMinuteEdit.getText().toString().isEmpty()) {
+                    saveSettings(v);
+                }
+                else {
+                    Toast.makeText(Settings.this, "You did not enter a valid value for one of the fields.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

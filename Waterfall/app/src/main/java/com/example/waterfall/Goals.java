@@ -77,6 +77,12 @@ public class Goals extends AppCompatActivity {
         btn_testPlay = (Button) findViewById(R.id.play_test);
         btn_testStop = (Button) findViewById(R.id.stop_test);
 
+        btn_stopRecord.setEnabled(false);
+        btn_testStop.setEnabled(false);
+        if (((App) getApplicationContext()).savePath == "null") {
+            btn_testPlay.setEnabled(false);
+        }
+
         btn_startRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +92,8 @@ public class Goals extends AppCompatActivity {
                 try {
                     audioRecorder.prepare();
                     audioRecorder.start();
+                    btn_startRecord.setEnabled(false);
+                    btn_stopRecord.setEnabled(true);
                 } catch (IOException e) {
                     Log.d("Audio","Does not pass try statement. Error: " + e);
                     e.printStackTrace();
@@ -99,6 +107,8 @@ public class Goals extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 audioRecorder.stop();
+                btn_startRecord.setEnabled(true);
+                btn_stopRecord.setEnabled(false);
                 savePath();
             }
         });
@@ -111,6 +121,8 @@ public class Goals extends AppCompatActivity {
                     audioPlayer.setDataSource(((App) getApplicationContext()).savePath);
                     audioPlayer.prepare();
                     audioPlayer.start();
+                    btn_testPlay.setEnabled(false);
+                    btn_testStop.setEnabled(true);
                 } catch (IOException e) {
                     Log.d("TestPlaybutton", "Does not pass try statement. Error: " + e);
                     e.printStackTrace();
@@ -126,6 +138,8 @@ public class Goals extends AppCompatActivity {
                 if (audioPlayer != null) {
                     audioPlayer.stop();
                     audioPlayer.release();
+                    btn_testPlay.setEnabled(true);
+                    btn_testStop.setEnabled(false);
                     setupAudioRecorder();
                 }
             }

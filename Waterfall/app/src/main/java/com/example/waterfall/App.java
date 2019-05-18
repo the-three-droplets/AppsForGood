@@ -7,10 +7,10 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -63,6 +63,7 @@ public class App extends Application {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
         if (settings.getBoolean("my_first_time", true)) {
+            // Runs only the first time the app is opened
             FileOutputStream outputStream = null;
             try {
                 outputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
@@ -75,12 +76,11 @@ public class App extends Application {
             }
             Log.d("Comments", "First time");
 
-            // first time task
-
             // record the fact that the app has been started at least once
             settings.edit().putBoolean("my_first_time", false).commit();
         }
 
+        // Gets the data from the saved preferences file and convert it into useable information
         FileInputStream fis = null;
         try {
             fis = openFileInput(FILE_NAME);
@@ -111,18 +111,25 @@ public class App extends Application {
             e.printStackTrace();
         }
 
+        // Initializes bluetooth
         mBTAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (mBTAdapter != null) {
             Log.d("App", "Bluetooth Adapter Initialized");
             mBTClass = new BTConnection_Class(this, Integer.parseInt(max_timeInterval));
         }
+        else {
+            Toast.makeText(this, "Device does not support bluetooth.", Toast.LENGTH_SHORT).show();
+        }
 
         createNotificationChannel();
     }
 
+    /**
+     * Notifies the user based on the chosen method(s) if the current time is valid
+     */
     public void notifyUser() {
-
+        // Gets the current time and converts it into useable information
         Calendar currentTime = Calendar.getInstance();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String timeString = timeFormat.format(currentTime.getTime());
@@ -130,6 +137,7 @@ public class App extends Application {
         int currentHour = Integer.parseInt(processedTime[0]);
         int currentMinute = Integer.parseInt(processedTime[1]);
 
+        // Makes sure user isn't notified when they are asleep
         if (currentHour < start_awakeHour || currentHour > end_awakeHour) {
             return;
         }
@@ -142,10 +150,12 @@ public class App extends Application {
             return;
         }
 
+        // Resets the daily water drank at midnight (new day)
         if (currentHour == 0 && currentMinute < Integer.parseInt(max_timeInterval) * 60) {
             mBTClass.resetDay();
         }
 
+        // Runs when phone notification is active
         if (notif_phoneStatus) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.threedroplets)
@@ -156,16 +166,9 @@ public class App extends Application {
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
 
             managerCompat.notify(8, builder.build());
-
-            Handler handler3 = new Handler();
-            handler3.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d(CLASS_TAG, "Delay for Notif");
-                }
-            }, 10000);
         }
 
+        // Runs when voice notification is active
         if (notif_voiceStatus) {
             if (savePath.equals("null")) {
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -176,13 +179,6 @@ public class App extends Application {
                 NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
                 managerCompat.notify(8, builder.build());
 
-                Handler handler2 = new Handler();
-                handler2.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(CLASS_TAG, "Delay for Audio Notif");
-                    }
-                }, 10000);
             }
             else {
                 audioPlayer = new MediaPlayer();
@@ -193,17 +189,13 @@ public class App extends Application {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Handler handler1 = new Handler();
-                handler1.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(CLASS_TAG, "Delay for Audio");
-                    }
-                }, 10000);
             }
         }
     }
 
+    /**
+     * This method updates the data when a change is made to the settings file
+     */
     public void updateSettings() {
         FileInputStream fis = null;
         try {
@@ -238,7 +230,9 @@ public class App extends Application {
         mBTClass.updateTime(Integer.parseInt(max_timeInterval));
     }
 
-
+    /**
+     * Makes a notification channel
+     */
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notifChannel = new NotificationChannel(CHANNEL_ID, "87", NotificationManager.IMPORTANCE_HIGH);
@@ -254,7 +248,7 @@ public class App extends Application {
         super.onTerminate();
 
     }
-
+    
     public void pushWeight(long time, double ounces) {
 //        count++;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
