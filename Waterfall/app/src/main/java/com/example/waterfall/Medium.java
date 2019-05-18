@@ -2,6 +2,7 @@ package com.example.waterfall;
 
 public interface Medium {
 
-    public void sendData(String str);
+    // This interface/method allows for passing data between BT connection class and any activity that implements it
+    void sendData(String str);
 
 }

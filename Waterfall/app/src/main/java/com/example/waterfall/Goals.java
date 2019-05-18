@@ -83,6 +83,7 @@ public class Goals extends AppCompatActivity {
             btn_testPlay.setEnabled(false);
         }
 
+        // Starts recording when button is pressed
         btn_startRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +104,7 @@ public class Goals extends AppCompatActivity {
             }
         });
 
+        // Stops recording when button is pressed
         btn_stopRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +115,7 @@ public class Goals extends AppCompatActivity {
             }
         });
 
+        // Starts playing the currently saved recording
         btn_testPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,6 +135,7 @@ public class Goals extends AppCompatActivity {
             }
         });
 
+        // Stops playing the currently saved recording
         btn_testStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +151,9 @@ public class Goals extends AppCompatActivity {
 
     }
 
+    /**
+     * Sets up the audio recorder
+     */
     private void setupAudioRecorder() {
         Log.d("SetUpMethod", "Called");
         audioRecorder = new MediaRecorder();
@@ -156,6 +163,9 @@ public class Goals extends AppCompatActivity {
         audioRecorder.setOutputFile(((App) getApplicationContext()).savePath);
     }
 
+    /**
+     * Saves the path of the audio file to the shared prefs settings
+     */
     private void savePath() {
         FileInputStream fis = null;
         try {

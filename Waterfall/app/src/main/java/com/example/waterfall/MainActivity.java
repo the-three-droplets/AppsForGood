@@ -126,6 +126,11 @@ public class MainActivity extends AppCompatActivity implements Medium {
 
     }
 
+    /**
+     * Creates a menu of bluetooth devices
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -140,6 +145,13 @@ public class MainActivity extends AppCompatActivity implements Medium {
         return true;
     }
 
+    /**
+     * If BLE device is selected, app will attempt to establish a GATT connection.
+     * If scan button is selected, app will initiate BLE scan.
+     * Otherwise, nothing will happen.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -164,7 +176,10 @@ public class MainActivity extends AppCompatActivity implements Medium {
         }
     }
 
-
+    /**
+     * Method that facilitates data transfer between bluetooth to activity
+     * @param str
+     */
     @Override
     public void sendData(final String str) {
         Handler medHandler = new Handler(Looper.getMainLooper());
@@ -175,6 +190,8 @@ public class MainActivity extends AppCompatActivity implements Medium {
                 for (int i = 0; i < unpackagedData.length; i ++) {
                     Log.d("MainActivity", "Data Received: " + unpackagedData[i]);
                 }
+
+                // Updates activity interface with relevant data
                 tv_percentageDrank.setText(Integer.toString((int) (Double.parseDouble(unpackagedData[0])/Integer.parseInt(ideal_waterTotal) * 100)) + "%");
                 progressCircle.setProgress((int)(Double.parseDouble(unpackagedData[0])/Integer.parseInt(ideal_waterTotal) * 100));
                 tv_fractionDrank.setText(Integer.toString((int)Double.parseDouble(unpackagedData[0])) + " oz drank out of " + ideal_waterTotal + " oz");

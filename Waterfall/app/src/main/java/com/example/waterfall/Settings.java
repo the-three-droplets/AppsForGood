@@ -130,6 +130,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        // Access current settings in shared preferences
         FileInputStream fis = null;
         try {
             fis = openFileInput(FILE_NAME);
@@ -165,6 +166,10 @@ public class Settings extends AppCompatActivity {
         }
     }
 
+    /**
+     * Saves the changes made by user to the settings file
+     * @param v the view of the activity
+     */
     public void saveSettings(View v) {
 
         FileInputStream fis = null;

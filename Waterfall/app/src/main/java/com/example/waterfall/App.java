@@ -248,7 +248,7 @@ public class App extends Application {
         super.onTerminate();
 
     }
-    
+
     public void pushWeight(long time, double ounces) {
 //        count++;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
