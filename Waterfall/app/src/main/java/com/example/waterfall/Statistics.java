@@ -12,17 +12,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
-public class Statistics extends AppCompatActivity {
+public class
+Statistics extends AppCompatActivity {
 
+    // Data
     private SectionsPagerAdapter sectionsPagerAdapter;
-
     private ViewPager viewPager;
 
+    //Overrides the onCreate method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
+        // Switch between bottom navigation tabs
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.navbarBottom);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -59,6 +62,7 @@ public class Statistics extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         setupViewPager(viewPager);
 
+        // Set up tabs for the graphs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -69,6 +73,8 @@ public class Statistics extends AppCompatActivity {
         ImageButton bluetoothButton = (ImageButton) findViewById(R.id.bluetooth_button);
     }
 
+
+    // Create hourly, daily, and weekly fragments
     private void setupViewPager(ViewPager viewpager) {
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.navbarBottom);
         Menu bottomNavBar = bottomNavigation.getMenu();

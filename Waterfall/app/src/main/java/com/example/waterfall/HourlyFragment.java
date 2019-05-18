@@ -1,3 +1,5 @@
+// GraphView Class used from from jjoe64
+
 package com.example.waterfall;
 
 import android.content.Intent;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 
 public class HourlyFragment extends Fragment {
 
+    // Data
     private ArrayList<Long> xVal = new ArrayList<Long>();
     private ArrayList<Double> yVal = new ArrayList<Double>();
 
@@ -38,16 +41,19 @@ public class HourlyFragment extends Fragment {
     DatabaseReference myRef = database.getReference("Weight");
     private ValueEventListener listener;
 
+    // Overrides the OnCreateView method
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view1 = inflater.inflate(R.layout.hourly_fragment,container,false);
 
-
+        // Adds a listener for changes in Firebase and Overrides the onDataChange method
         listener = myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot child : dataSnapshot.getChildren()){
+
+                    // Pulls data from Firebase
                     Log.d("MainActivityValue",child.getValue().toString());
                     Log.d("MainActivityValue",child.getKey());
 
@@ -56,6 +62,8 @@ public class HourlyFragment extends Fragment {
 
                     xVal.add(Long.parseLong(child.getKey()));
                     yVal.add(Double.parseDouble(child.getValue().toString()));
+
+                    // Graphs data
                     y = 0;
                     series = new LineGraphSeries<DataPoint>();
                     series.appendData(new DataPoint(0, 0), true, xVal.size() + 1);
@@ -66,45 +74,35 @@ public class HourlyFragment extends Fragment {
                             try {
                                 series.appendData(new DataPoint(x, y), true, xVal.size() + 1);
                             } catch(Exception e){
-//                                Intent openHome = new Intent(getActivity(), MainActivity.class);
-//                                startActivity(openHome);
                                 getActivity().finish();
                             }
                         }
                     }
 
+                    // Sets bounds on data
                     hourlyGraph.getViewport().setXAxisBoundsManual(true);
-
-
                     hourlyGraph.getViewport().setMinX(0);
                     hourlyGraph.getViewport().setMaxX(25);
 
-//                    GridLabelRenderer xAxis = hourlyGraph.getGridLabelRenderer();
-//                    xAxis.setHorizontalAxisTitle("Hours");
-//                    GridLabelRenderer yAxis = hourlyGraph.getGridLabelRenderer();
-//                    yAxis.setVerticalAxisTitle("Ounces Drank");
                     hourlyGraph.removeAllSeries();
                     hourlyGraph.addSeries(series);
                 }
             }
+
+            // Overrides the onCancelled method
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.w("MainActivity", "Failed to read value.", error.toException());
             }
         });
 
-
-
-
         Log.d("MainActivityValue",xVal.toString());
         Log.d("MainActivityValue",yVal.toString());
-
-
-
 
         return view1;
     }
 
+    // Overrides the onPause method
     @Override
     public void onPause() {
         super.onPause();
