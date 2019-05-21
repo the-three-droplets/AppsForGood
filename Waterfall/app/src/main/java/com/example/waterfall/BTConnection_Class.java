@@ -63,6 +63,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
 
         oldOfficial_waterLevel = 12;
         oldTime_sinceStart = 0;
+        official_waterLevel = 12;
         // Initialize old values with firebase
 
         pastWaterLevels = new double[4];
