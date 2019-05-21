@@ -49,6 +49,7 @@ public class App extends Application {
     private int start_awakeMinute;
     private int end_awakeHour;
     private int end_awakeMinute;
+    private int dailyGoal;
 
     public String savePath = "";
     private MediaPlayer audioPlayer;
@@ -88,6 +89,7 @@ public class App extends Application {
             BufferedReader br = new BufferedReader(isr);
             String[] fields = br.readLine().split(",");
             max_timeInterval = fields[0];
+            dailyGoal = Integer.parseInt(fields[1]);
             if (fields[2].equals("on")) {
                 notif_voiceStatus = true;
             }
@@ -128,7 +130,7 @@ public class App extends Application {
     /**
      * Notifies the user based on the chosen method(s) if the current time is valid
      */
-    public void notifyUser() {
+    public void notifyUser(int currentDayDrank) {
         // Gets the current time and converts it into useable information
         Calendar currentTime = Calendar.getInstance();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -157,10 +159,11 @@ public class App extends Application {
 
         // Runs when phone notification is active
         if (notif_phoneStatus) {
+            int amountLeft = dailyGoal - currentDayDrank;
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setSmallIcon(R.drawable.threedroplets)
                     .setContentTitle("Waterfall")
-                    .setContentText("Please drink some water. It has been more than " + max_timeInterval + " minute(s) since your last drink.")
+                    .setContentText("Please drink some water. You're almost there, only " + amountLeft + "ounces left! It has been more than " + max_timeInterval + " minute(s) since your last drink.")
                     .setPriority(NotificationCompat.PRIORITY_HIGH);
 
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);

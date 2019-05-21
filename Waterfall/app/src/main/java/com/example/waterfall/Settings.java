@@ -40,6 +40,8 @@ public class Settings extends AppCompatActivity {
     private boolean notif_phoneStatus;
     private boolean notif_voiceStatus;
 
+    final Resources res = getResources();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,8 +87,6 @@ public class Settings extends AppCompatActivity {
         start_awakeMinuteEdit = (EditText) findViewById(R.id.awake_startMinuteEdit);
         end_awakeHourEdit = (EditText) findViewById(R.id.awake_endHourEdit);
         end_awakeMinuteEdit = (EditText) findViewById(R.id.awake_endMinuteEdit);
-
-        final Resources res = getResources();
 
         voiceNotif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

@@ -2,6 +2,7 @@ package com.example.waterfall;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements Medium {
 
     private String ideal_waterTotal;
     private String max_timeInterval;
+
+    private MenuItem btIcon;
+
+    final Resources res = getResources();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements Medium {
 
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.top_navbar));
 
+        btIcon = findViewById(R.id.bt_icon);
     }
 
     /**
@@ -190,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements Medium {
                 for (int i = 0; i < unpackagedData.length; i ++) {
                     Log.d("MainActivity", "Data Received: " + unpackagedData[i]);
                 }
-
                 // Updates activity interface with relevant data
                 tv_percentageDrank.setText(Integer.toString((int) (Double.parseDouble(unpackagedData[0])/Integer.parseInt(ideal_waterTotal) * 100)) + "%");
                 progressCircle.setProgress((int)(Double.parseDouble(unpackagedData[0])/Integer.parseInt(ideal_waterTotal) * 100));
@@ -200,4 +205,22 @@ public class MainActivity extends AppCompatActivity implements Medium {
             }
         });
     }
+
+    @Override
+    public void isActivated(final boolean on) {
+        Handler medHandler = new Handler(Looper.getMainLooper());
+        medHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (on) {
+                    btIcon.setIcon(res.getDrawable(R.drawable.ic_bluetooth_blue_24dp));
+                }
+                if (!on) {
+                    btIcon.setIcon(res.getDrawable(R.drawable.ic_bluetooth_disabled_white_24dp));
+                }
+            }
+        });
+    }
+
+
 }
