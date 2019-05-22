@@ -66,8 +66,12 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
         official_waterLevel = 12;
         // Initialize old values with firebase
 
-        pastWaterLevels = new double[4];
+        pastWaterLevels = new double[7];
         counter = 0;
+
+        for (int i = 0; i < pastWaterLevels.length; i ++) {
+            pastWaterLevels[i] = Math.random() * 12;
+        }
     }
 
     /**
@@ -108,7 +112,6 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
         mBTAdapter.startLeScan(this);
         mHandler.sendMessage(Message.obtain(null, MSG_PROGRESS, "Searching for Water Bottle..."));
         mHandler.postDelayed(mStopRunnable,2500);
-        mHandler.sendEmptyMessage(MSG_DISMISS);
     }
 
     /**
@@ -140,6 +143,7 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
     private Runnable mStopRunnable = new Runnable() {
         @Override
         public void run() {
+            mHandler.sendEmptyMessage(MSG_DISMISS);
             stopScan();
         }
     };
@@ -287,8 +291,10 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                 case MSG_WEIGHT:
                     characteristic = (BluetoothGattCharacteristic) msg.obj;
                     if (characteristic.getValue() == null) {
+                        Log.d(CLASS_TAG, "Null Data");
                         return;
                     }
+                    mInterface.isActivated(true);
                     String rawData = new String(characteristic.getValue());
                     if (rawData.isEmpty()) {
                         Log.d(CLASS_TAG, "String is empty");
@@ -317,31 +323,32 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
                         new_waterLevel = rawWeight / 28.35;
 
                         boolean consistent = true;
-                        for (int i = 0; i < 3; i ++) {
+                        for (int i = 0; i < pastWaterLevels.length - 1; i ++) {
                             if (Math.abs(pastWaterLevels[i] - pastWaterLevels[i + 1]) > 0.35) {
                                 consistent = false;
                             }
                         }
 
+                        Log.d(CLASS_TAG, "Consistent: " + consistent);
                         if (consistent) {
                             oldOfficial_waterLevel = official_waterLevel;
                             official_waterLevel = new_waterLevel;
                         }
 
-                        if (Math.abs(official_waterLevel - oldOfficial_waterLevel) > 0.5) {
+                        if (oldOfficial_waterLevel - official_waterLevel > 0.5) {
                             // Drink was taken
                             Log.d(CLASS_TAG, "Firebase");
                             ((App) context).pushWeight(newTime_sinceStart, new_waterLevel);
 
-                            today_waterDrank += Math.abs(official_waterLevel - oldOfficial_waterLevel);
+                            today_waterDrank += oldOfficial_waterLevel - official_waterLevel;
 
                             timeSince_lastDrink = 0;
                         }
 
                         String packagedData = Double.toString(today_waterDrank) + "," + Double.toString(timeSince_lastDrink);
-                        Log.d(CLASS_TAG, "Packagjned Data: " + packagedData);
+                        Log.d(CLASS_TAG, "Packaged Data: " + packagedData);
 
-                        counter = (counter + 1) % 4;
+                        counter = (counter + 1) % 7;
 
                         mInterface.sendData(packagedData);
                     }

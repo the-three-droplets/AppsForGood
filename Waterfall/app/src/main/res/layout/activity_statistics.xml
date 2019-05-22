@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorBlue"
-            android:src="@drawable/ic_bluetooth_white" />
+            />
 
         <TextView
             android:layout_width="0dp"

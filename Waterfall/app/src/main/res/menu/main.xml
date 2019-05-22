@@ -5,7 +5,7 @@
     <item
         android:id="@+id/bt_icon"
         android:title="bt_icon"
-        android:icon="@drawable/ic_bluetooth_white"
+        android:icon="@drawable/ic_bluetooth_disabled_white_24dp"
         yourapp:showAsAction="always"
         />
 

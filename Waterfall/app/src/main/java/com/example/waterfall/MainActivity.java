@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements Medium {
 
     private MenuItem btIcon;
 
-    final Resources res = getResources();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements Medium {
         setContentView(R.layout.activity_main);
         setProgressBarIndeterminate(true);
 
-        ((App) getApplicationContext()).mBTClass.activityChange(this,this);
+        ((App) getApplicationContext()).mBTClass.activityChange(this, this);
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.navbarBottom);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -128,8 +126,6 @@ public class MainActivity extends AppCompatActivity implements Medium {
         }
 
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.top_navbar));
-
-        btIcon = findViewById(R.id.bt_icon);
     }
 
     /**
@@ -141,6 +137,8 @@ public class MainActivity extends AppCompatActivity implements Medium {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+
+        btIcon = menu.getItem(0);
 
         devices = ((App) getApplicationContext()).mBTClass.getDevices();
 
@@ -212,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements Medium {
         medHandler.post(new Runnable() {
             @Override
             public void run() {
+                final Resources res = getResources();
                 if (on) {
                     btIcon.setIcon(res.getDrawable(R.drawable.ic_bluetooth_blue_24dp));
                 }
