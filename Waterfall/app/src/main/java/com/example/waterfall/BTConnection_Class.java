@@ -61,9 +61,9 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
         mDevices = new SparseArray<BluetoothDevice>();
         this.maxTime = maxTime;
 
-        oldOfficial_waterLevel = 12;
+        oldOfficial_waterLevel = 0;
         oldTime_sinceStart = 0;
-        official_waterLevel = 12;
+        official_waterLevel = 0;
         // Initialize old values with firebase
 
         pastWaterLevels = new double[7];
