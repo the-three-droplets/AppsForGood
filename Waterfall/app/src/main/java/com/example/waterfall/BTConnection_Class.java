@@ -66,12 +66,14 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
         official_waterLevel = 0;
         // Initialize old values with firebase
 
-        pastWaterLevels = new double[7];
+        pastWaterLevels = new double[5];
         counter = 0;
 
         for (int i = 0; i < pastWaterLevels.length; i ++) {
-            pastWaterLevels[i] = Math.random() * 12;
+            pastWaterLevels[i] = 0;
         }
+
+        today_waterDrank = 0;
     }
 
     /**
@@ -322,35 +324,38 @@ public class BTConnection_Class implements BluetoothAdapter.LeScanCallback {
 
                         new_waterLevel = rawWeight / 28.35;
 
+                        Log.d(CLASS_TAG, "The new water level is: " + new_waterLevel);
+
                         boolean consistent = true;
                         for (int i = 0; i < pastWaterLevels.length - 1; i ++) {
-                            if (Math.abs(pastWaterLevels[i] - pastWaterLevels[i + 1]) > 0.35) {
+                            Log.d(CLASS_TAG, "Change is " + Double.toString(pastWaterLevels[i] - pastWaterLevels[i + 1]));
+                            if (Math.abs(pastWaterLevels[i] - pastWaterLevels[i + 1]) > 0.4) {
                                 consistent = false;
                             }
                         }
 
                         Log.d(CLASS_TAG, "Consistent: " + consistent);
-                        if (consistent) {
+                        if (consistent && new_waterLevel >= 0) {
                             oldOfficial_waterLevel = official_waterLevel;
                             official_waterLevel = new_waterLevel;
+
+                            if (oldOfficial_waterLevel - official_waterLevel > 0.5) {
+                                // Drink was taken
+                                Log.d(CLASS_TAG, "Firebase");
+                                ((App) context).pushWeight(newTime_sinceStart, new_waterLevel);
+
+                                today_waterDrank += oldOfficial_waterLevel - official_waterLevel;
+
+                                timeSince_lastDrink = 0;
+                            }
+
+                            String packagedData = Double.toString(today_waterDrank) + "," + Double.toString(timeSince_lastDrink);
+                            Log.d(CLASS_TAG, "Packaged Data: " + packagedData);
+
+                            mInterface.sendData(packagedData);
                         }
 
-                        if (oldOfficial_waterLevel - official_waterLevel > 0.5) {
-                            // Drink was taken
-                            Log.d(CLASS_TAG, "Firebase");
-                            ((App) context).pushWeight(newTime_sinceStart, new_waterLevel);
-
-                            today_waterDrank += oldOfficial_waterLevel - official_waterLevel;
-
-                            timeSince_lastDrink = 0;
-                        }
-
-                        String packagedData = Double.toString(today_waterDrank) + "," + Double.toString(timeSince_lastDrink);
-                        Log.d(CLASS_TAG, "Packaged Data: " + packagedData);
-
-                        counter = (counter + 1) % 7;
-
-                        mInterface.sendData(packagedData);
+                        counter = (counter + 1) % pastWaterLevels.length;
                     }
                     catch (Exception e) {
                         Log.d(CLASS_TAG, "Does not pass try statement. Error: " + e);

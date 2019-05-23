@@ -128,6 +128,12 @@ public class MainActivity extends AppCompatActivity implements Medium {
         setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.top_navbar));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
     /**
      * Creates a menu of bluetooth devices
      * @param menu
