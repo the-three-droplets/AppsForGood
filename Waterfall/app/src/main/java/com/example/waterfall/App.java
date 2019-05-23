@@ -153,7 +153,7 @@ public class App extends Application {
         }
 
         // Resets the daily water drank at midnight (new day)
-        if (currentHour == 0 && currentMinute < Integer.parseInt(max_timeInterval) * 60) {
+        if (currentHour == 0 && currentMinute < Integer.parseInt(max_timeInterval)) {
             mBTClass.resetDay();
         }
 
